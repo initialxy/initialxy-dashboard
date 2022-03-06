@@ -1,0 +1,4 @@
+#!/bin/bash
+mypy api.py
+cd frontend
+npm run typecheck
