@@ -1,4 +1,6 @@
 {
   "port": 80,
-  "devPort": 8000
+  "devPort": 8000,
+  "timeFormat": "k:mm",
+  "dateFormat": "MMM D, YYYY"
 }

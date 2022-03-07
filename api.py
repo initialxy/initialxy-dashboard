@@ -1,9 +1,7 @@
-from utils.config import get_config
+from utils.config import get_config, Config
 import os
 import tornado.ioloop
 import tornado.web
-
-CONFIG = get_config()
 
 static_dir_props = {
   "path": os.path.join(os.path.dirname(__file__), "frontend/dist"),
@@ -11,7 +9,7 @@ static_dir_props = {
 }
 
 
-def make_app() -> tornado.web.Application:
+def make_app(config: Config) -> tornado.web.Application:
   return tornado.web.Application(
     [
       (
@@ -25,11 +23,12 @@ def make_app() -> tornado.web.Application:
         static_dir_props,
       ),
     ],
-    debug=CONFIG.is_debug
+    debug=config.is_debug
   )
 
 
 if __name__ == "__main__":
-  app = make_app()
-  app.listen(CONFIG.port)
+  config = get_config()
+  app = make_app(config)
+  app.listen(config.port)
   tornado.ioloop.IOLoop.current().start()

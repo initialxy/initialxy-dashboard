@@ -1,20 +1,23 @@
 from __future__ import annotations
-from dataclasses import dataclass
-from functools import lru_cache
-from typing import Type, TypeVar, ClassVar, Optional
+
 import json
 import os
-import sys
+from dataclasses import dataclass
+from functools import lru_cache
+from pathlib import Path
+from typing import Optional
 
+from utils.args import args
 
 CONFIG_FILE_NAME = "appconfig.json"
-IS_DEBUG = "--debug" in sys.argv
-
 
 @dataclass
 class Config:
   port: int
   is_debug: bool
+  save_image: Optional[Path]
+  time_format: str
+  date_format: str
 
 
 @lru_cache(maxsize=1)
@@ -25,16 +28,19 @@ def get_config() -> Config:
   humanly readable. So we have to do some old school parsing here.
   """
 
-  f = open(os.path.join(
+  with open(os.path.join(
     os.path.dirname(os.path.dirname(__file__)),
     CONFIG_FILE_NAME,
-  ))
-  contents = f.read()
-  f.close()
+  )) as f:
+    contents = f.read()
+  
   config_dict = json.loads(contents)
 
   return Config(
     config_dict.get("port", 80)
-      if not IS_DEBUG else config_dict.get("devPort", 8000),
-    IS_DEBUG,
+      if not args.debug else config_dict.get("devPort", 8000),
+    args.debug,
+    args.save_img,
+    config_dict.get("timeFormat", "k:mm"),
+    config_dict.get("dateFormat", "YYYY-MM-DD"),
   )
