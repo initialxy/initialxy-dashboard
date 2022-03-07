@@ -1,5 +1,5 @@
 import "./App.css";
-import "@fortawesome/fontawesome-free/css/all.css";
+import "roboto-fontface/css/roboto/roboto-fontface.css";
 import { defineComponent, onMounted } from "vue";
 import store from "./store";
 import Clock from "./components/Clock";

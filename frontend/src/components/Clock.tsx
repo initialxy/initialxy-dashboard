@@ -25,9 +25,14 @@ export default defineComponent({
 
     return () => (
       <div class="Clock">
-        <h1>{moment(timestamp.value).format(props.timeFormat)}</h1>
-        <h2>{moment(timestamp.value).format(props.dateFormat)}</h2>
-      </div>
-    );
+          <div class="display">
+              <span class="time">
+                  {moment(timestamp.value).format(props.timeFormat)}
+              </span>
+              <span class="date">
+                  {moment(timestamp.value).format(props.dateFormat)}
+              </span>
+          </div>
+      </div>);
   }
 });
