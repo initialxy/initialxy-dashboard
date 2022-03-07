@@ -14,6 +14,8 @@
     "@types/thrift": "^0.10.11",
     "core-js": "^3.20.1",
     "moment": "^2.29.1",
+    "thrift": "^0.16.0",
+    "ts-memoize-decorator": "^1.1.0",
     "vue": "^3.2.26",
     "vuex": "^4.0.2"
   },

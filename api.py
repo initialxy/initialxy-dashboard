@@ -1,7 +1,13 @@
-from utils.config import get_config, Config
+from email.headerregistry import ContentTransferEncodingHeader
 import os
+
 import tornado.ioloop
 import tornado.web
+
+from handlers.handlers import ConfigHandler
+from utils.config import Config, get_config
+
+CONFIG = get_config()
 
 static_dir_props = {
   "path": os.path.join(os.path.dirname(__file__), "frontend/dist"),
@@ -9,26 +15,18 @@ static_dir_props = {
 }
 
 
-def make_app(config: Config) -> tornado.web.Application:
+def make_app() -> tornado.web.Application:
   return tornado.web.Application(
     [
-      (
-        r"/e/(.*)",
-        tornado.web.StaticFileHandler,
-        static_dir_props,
-      ),
-      (
-        r"/(.*)",
-        tornado.web.StaticFileHandler,
-        static_dir_props,
-      ),
+      (r"/c", ConfigHandler),
+      (r"/e/(.*)", tornado.web.StaticFileHandler, static_dir_props),
+      (r"/(.*)", tornado.web.StaticFileHandler, static_dir_props),
     ],
-    debug=config.is_debug
+    debug=CONFIG.is_debug
   )
 
 
 if __name__ == "__main__":
-  config = get_config()
-  app = make_app(config)
-  app.listen(config.port)
+  app = make_app()
+  app.listen(CONFIG.port)
   tornado.ioloop.IOLoop.current().start()
