@@ -31,7 +31,7 @@ try:
     chrome_options.add_argument("hide-scrollbars")
 
     driver = webdriver.Chrome(options=chrome_options)
-    driver.get("https://time.is/")
+    driver.get("http://localhost:8000")
     for i in range(3):
       img_binary = driver.get_screenshot_as_png()
       image = Image.open(io.BytesIO(img_binary)) 

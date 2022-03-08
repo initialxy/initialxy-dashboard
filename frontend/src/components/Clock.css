@@ -2,6 +2,9 @@
   background-color: black;
   overflow: hidden;
   width: 100%;
+  background-image: url("/header_texture.png");
+  background-repeat: no-repeat;
+  background-position: 100% 0;
 }
 
 .Clock .display {
@@ -12,6 +15,7 @@
 
 .Clock .display .time {
   font-size: 3em;
+  font-weight: 500;
 }
 
 .Clock .display .date {
