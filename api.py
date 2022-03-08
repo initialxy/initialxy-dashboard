@@ -3,7 +3,7 @@ import os
 import tornado.ioloop
 import tornado.web
 
-from handlers.handlers import ConfigHandler, StocksHandler
+from handlers.handlers import ConfigHandler, StocksHandler, TasksHandler
 from utils.config import get_config
 
 CONFIG = get_config()
@@ -19,6 +19,7 @@ def make_app() -> tornado.web.Application:
     [
       (r"/c", ConfigHandler),
       (r"/s", StocksHandler),
+      (r"/t", TasksHandler),
       (r"/e/(.*)", tornado.web.StaticFileHandler, static_dir_props),
       (r"/(.*)", tornado.web.StaticFileHandler, static_dir_props),
     ],

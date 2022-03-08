@@ -3,7 +3,6 @@ import "roboto-fontface/css/roboto/roboto-fontface.css";
 import { defineComponent, onMounted } from "vue";
 import store from "./store";
 import Clock from "./components/Clock";
-import { getConfigEndpoint } from "./utils/URL";
 
 export default defineComponent({
   name: "App",
