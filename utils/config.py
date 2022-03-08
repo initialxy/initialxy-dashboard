@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -11,6 +10,7 @@ from utils.args import args
 
 CONFIG_FILE_NAME = "appconfig.json"
 
+
 @dataclass
 class Config:
   port: int
@@ -18,6 +18,9 @@ class Config:
   save_image: Optional[Path]
   time_format: str
   date_format: str
+  date_short_format: str
+  epaper_model: str
+  resolution: str
 
 
 @lru_cache(maxsize=1)
@@ -28,12 +31,9 @@ def get_config() -> Config:
   humanly readable. So we have to do some old school parsing here.
   """
 
-  with open(os.path.join(
-    os.path.dirname(os.path.dirname(__file__)),
-    CONFIG_FILE_NAME,
-  )) as f:
+  with open(Path(__file__).parent.parent.joinpath(CONFIG_FILE_NAME)) as f:
     contents = f.read()
-  
+
   config_dict = json.loads(contents)
 
   return Config(
@@ -43,4 +43,7 @@ def get_config() -> Config:
     args.save_img,
     config_dict.get("timeFormat", "k:mm"),
     config_dict.get("dateFormat", "YYYY-MM-DD"),
+    config_dict.get("dateShortFormat", "MM-DD"),
+    config_dict["epaperModel"],
+    config_dict["resolution"],
   )

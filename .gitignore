@@ -2,6 +2,7 @@ venv/
 __pycache__/
 **/__pycache__/
 pygen/**/**.pyi
+*.db
 
 frontend/package-lock.json
 frontend/node_modules

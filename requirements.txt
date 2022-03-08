@@ -30,6 +30,7 @@ pyflakes==2.4.0
 pylint==2.12.2
 pyOpenSSL==22.0.0
 PySocks==1.7.1
+pysqlite3==0.4.7
 regex==2022.3.2
 RPi.GPIO==0.7.1
 selenium==4.1.2
