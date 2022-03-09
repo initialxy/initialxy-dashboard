@@ -5,3 +5,11 @@ const ROOT = process.env.NODE_ENV === "development"
 export function getConfigEndpoint(): string {
   return ROOT + "c";
 }
+
+export function getStocksEndpoint(): string {
+  return ROOT + "s";
+}
+
+export function getTasksEndpoint(): string {
+  return ROOT + "t";
+}

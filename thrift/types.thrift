@@ -5,10 +5,10 @@ struct FrontEndConfig {
 }
 
 struct Task {
-  1: required i64 id,
-  2: required i64 ord, // order of tasks in desc. So new task will go to top.
+  1: required double id, // Use double in place of i64 due to quirks with thrift-typescript
+  2: required double ord, // order of tasks in desc. So new task will go to top.
   3: required string desc,
-  4: optional i64 time, // UNIX timestamp. 0 to indicate unset
+  4: optional double time, // UNIX timestamp. 0 to indicate unset
 }
 
 struct Tasks {
@@ -16,7 +16,7 @@ struct Tasks {
 }
 
 struct Stock {
-  1: required i64 ord, // order of stocks in desc
+  1: required double ord, // order of stocks in desc
   2: required string symbol,
 }
 

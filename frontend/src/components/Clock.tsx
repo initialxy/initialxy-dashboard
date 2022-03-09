@@ -1,14 +1,14 @@
 import "./Clock.css";
-import { defineComponent, ref, Ref } from "vue";
-import moment from 'moment';
+import { defineComponent, ref, Ref, onMounted } from "vue";
+import moment from "moment";
 import { sleep } from "../utils/Misc";
 
 const UPDATE_EVERY_MS = 60000;
 
 async function updateLoop(timestamp: Ref<number>): Promise<void> {
   while (true) {
-    await sleep(UPDATE_EVERY_MS - (Date.now() % UPDATE_EVERY_MS));
-    timestamp.value = Date.now();
+    await sleep(UPDATE_EVERY_MS - (moment().valueOf() % UPDATE_EVERY_MS));
+    timestamp.value = moment().valueOf();
   }
 }
 
@@ -19,9 +19,11 @@ export default defineComponent({
     dateFormat: { type: String, required: true },
   },
   setup(props) {
-    const timestamp = ref(Date.now());
+    const timestamp = ref(moment().valueOf());
 
-    updateLoop(timestamp);
+    onMounted(async () => {
+      updateLoop(timestamp);
+    });
 
     return () => (
       <div class="Clock">

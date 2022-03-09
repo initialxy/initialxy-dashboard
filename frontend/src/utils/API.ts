@@ -1,6 +1,8 @@
 import { Buffer } from "buffer";
 import { FrontEndConfig } from "../jsgen/FrontEndConfig";
-import { getConfigEndpoint } from "./URL";
+import { Stocks } from "../jsgen/Stocks";
+import { Tasks } from "../jsgen/Tasks";
+import { getConfigEndpoint, getStocksEndpoint, getTasksEndpoint } from "./URL";
 import { TFramedTransport, TBinaryProtocol, TProtocol } from "thrift";
 import Memoize from "./Memoize";
 
@@ -21,5 +23,17 @@ export default class API {
     const resp = await fetch(getConfigEndpoint());
     const respArrayBuffer = await resp.arrayBuffer();
     return deserializeThrift(Buffer.from(respArrayBuffer), FrontEndConfig);
+  }
+
+  static async genStocks(): Promise<Stocks> {
+    const resp = await fetch(getStocksEndpoint());
+    const respArrayBuffer = await resp.arrayBuffer();
+    return deserializeThrift(Buffer.from(respArrayBuffer), Stocks);
+  }
+
+  static async genTasks(): Promise<Tasks> {
+    const resp = await fetch(getTasksEndpoint());
+    const respArrayBuffer = await resp.arrayBuffer();
+    return deserializeThrift(Buffer.from(respArrayBuffer), Tasks);
   }
 }
