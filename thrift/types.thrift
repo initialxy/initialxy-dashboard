@@ -6,7 +6,7 @@ struct FrontEndConfig {
 
 struct Task {
   1: required i64 id,
-  2: required i16 pri, // 0 being highest priority
+  2: required i64 ord, // order of tasks in desc. So new task will go to top.
   3: required string desc,
   4: optional i64 time, // UNIX timestamp. 0 to indicate unset
 }
@@ -16,7 +16,7 @@ struct Tasks {
 }
 
 struct Stock {
-  1: required i16 pri,
+  1: required i64 ord, // order of stocks in desc
   2: required string symbol,
 }
 

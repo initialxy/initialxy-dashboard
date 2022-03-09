@@ -21,19 +21,21 @@ class Storage:
         cursor = conn.cursor()
         cursor.execute("""
           CREATE TABLE stocks (
-            pri INTEGER NOT NULL,
+            ord INTEGER NOT NULL,
             symbol TEXT NOT NULL PRIMARY KEY
           )
         """)
         cursor.execute("""
           CREATE TABLE tasks (
-            pri INTEGER NOT NULL,
+            ord INTEGER NOT NULL,
             desc TEXT NOT NULL,
             ts INTEGER
           )
         """)
-        cursor.execute("CREATE INDEX task_sort ON tasks (pri, ts)")
-        cursor.execute("CREATE INDEX stock_sort ON stocks (pri, symbol)")
+        cursor.execute("CREATE INDEX task_sort ON tasks (ord DESC, ts)")
+        cursor.execute(
+          "CREATE INDEX stock_sort ON stocks (ord DESC, symbol)"
+        )
 
   def __execute(self, query: str) -> List[Any]:
     if not self.conn:
@@ -41,13 +43,15 @@ class Storage:
     cursor = self.conn.cursor()
     return cursor.execute(query).fetchall()
 
-  def getStocks(self) -> List[pygen.types.Stock]:
-    res = self.__execute("SELECT symbol FROM stocks ORDER BY pri, symbol")
+  def get_stocks(self) -> List[pygen.types.Stock]:
+    res = self.__execute(
+      "SELECT ord, symbol FROM stocks ORDER BY ord DESC, symbol DESC"
+    )
     return [pygen.types.Stock(pri, symbol) for pri, symbol in res]
 
-  def getTasks(self) -> List[pygen.types.Task]:
+  def get_tasks(self) -> List[pygen.types.Task]:
     res = self.__execute(
-      "SELECT rowid, pri, desc, ts FROM tasks ORDER BY pri, ts NULLS LAST",
+      "SELECT rowid, ord, desc, ts FROM tasks ORDER BY ord DESC, ts NULLS LAST",
     )
     return [
       pygen.types.Task(rowid, pri, desc, ts)
@@ -61,3 +65,32 @@ class Storage:
   def __exit__(self, _type, _value, _trace) -> None:
     if self.conn:
       self.conn.close()
+
+
+class CachedStorage:
+  """
+  Avoid hitting SD card as much as possible to extend its life span
+  """
+  __is_dirty = False
+  __stocks: Optional[list[pygen.types.Stock]] = None
+  __tasks: Optional[list[pygen.types.Task]] = None
+
+  @classmethod
+  def get_stocks(cls) -> List[pygen.types.Stock]:
+    if cls.__stocks and not cls.__is_dirty:
+      return cls.__stocks
+
+    with Storage() as s:
+      cls.__stocks = s.get_stocks()
+      cls.__is_dirty = False
+      return cls.__stocks
+
+  @classmethod
+  def get_tasks(cls) -> List[pygen.types.Task]:
+    if cls.__tasks and not cls.__is_dirty:
+      return cls.__tasks
+
+    with Storage() as s:
+      cls.__tasks = s.get_tasks()
+      cls.__is_dirty = False
+      return cls.__tasks

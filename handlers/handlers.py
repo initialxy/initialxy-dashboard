@@ -1,7 +1,7 @@
 import pygen
 import tornado.web
 from utils.config import get_config
-from utils.storage import Storage
+from utils.storage import CachedStorage
 from utils.thrift import serialize_bin
 
 CONFIG = get_config()
@@ -36,9 +36,8 @@ class StocksHandler(BaseEndpointHandler):
   """
 
   async def get(self) -> None:
-    with Storage() as storage:
-      stocks_resp = pygen.types.Stocks(storage.getStocks())
-      self.write(serialize_bin(stocks_resp))
+    stocks_resp = pygen.types.Stocks(CachedStorage.get_stocks())
+    self.write(serialize_bin(stocks_resp))
     self.finish()
 
 
@@ -48,7 +47,6 @@ class TasksHandler(BaseEndpointHandler):
   """
 
   async def get(self) -> None:
-    with Storage() as storage:
-      tasks_resp = pygen.types.Tasks(storage.getTasks())
-      self.write(serialize_bin(tasks_resp))
+    tasks_resp = pygen.types.Tasks(CachedStorage.get_tasks())
+    self.write(serialize_bin(tasks_resp))
     self.finish()
