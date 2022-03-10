@@ -7,7 +7,10 @@ export default defineComponent({
   setup(_, ctx) {
     return () => (
       <div class="ListItem">
-        {(ctx.slots.default || emptyFunc)()}
+        <div class="arrow" />
+        <div class="item_body">
+          {(ctx.slots.default || emptyFunc)()}
+        </div>
       </div>);
   }
 });

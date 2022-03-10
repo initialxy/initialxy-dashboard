@@ -14,6 +14,7 @@ from PIL import Image,ImageDraw,ImageFont
 import traceback
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import io
 
 logging.basicConfig(level=logging.DEBUG)
@@ -30,7 +31,10 @@ try:
     chrome_options.add_argument("window-size=800x480")
     chrome_options.add_argument("hide-scrollbars")
 
-    driver = webdriver.Chrome(options=chrome_options)
+    caps = DesiredCapabilities().CHROME
+    caps["pageLoadStrategy"] = "none"
+
+    driver = webdriver.Chrome(options=chrome_options, desired_capabilities=caps)
     driver.get("http://localhost:8000")
     for i in range(3):
       img_binary = driver.get_screenshot_as_png()

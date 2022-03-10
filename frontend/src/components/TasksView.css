@@ -1,3 +1,27 @@
 .TasksView {
-  
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.TasksView .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.TasksView .row .desc,
+.TasksView .row .time {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.TasksView .row .desc {
+  flex: 1 1 0;
+  text-overflow: ellipsis;
+}
+
+.TasksView .row .time {
+  color: #646464;
+  flex: 0 0 1;
+  padding-left: 1em;
 }

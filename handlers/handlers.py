@@ -24,7 +24,7 @@ class ConfigHandler(BaseEndpointHandler):
 
   async def get(self) -> None:
     config_resp = pygen.types.FrontEndConfig(
-      CONFIG.time_format, CONFIG.date_format
+      CONFIG.time_format, CONFIG.date_format, CONFIG.date_short_format,
     )
     self.write(serialize_bin(config_resp))
     self.finish()

@@ -5,8 +5,8 @@ import { defineComponent, onMounted } from "vue";
 import { sleep } from "./utils/Misc";
 import Clock from "./components/Clock";
 import StocksView from "./components/StocksView";
-import TasksView from "./components/TasksView";
 import store from "./store";
+import TasksView from "./components/TasksView";
 
 const UPDATE_EVERY_MS = 60000;
 
@@ -43,7 +43,10 @@ export default defineComponent({
               <StocksView stocksResp={store.state.stocksResp} />
             </div>
             <div class="tasks_container">
-              <TasksView tasksResp={store.state.tasksResp} />
+              <TasksView
+                tasksResp={store.state.tasksResp}
+                dateFormat={store.state.config.dateShortFormat}
+              />
             </div>
           </div>
         </div>
