@@ -16,9 +16,19 @@ struct Tasks {
   1: required list<Task> tasks,
 }
 
+struct StockDataPoint {
+  1: required double max;
+  2: required double min;
+  3: required double open;
+  4: required double close;
+}
+
 struct Stock {
   1: required double ord, // order of stocks in desc
   2: required string symbol,
+  3: optional double curMarketPrice,
+  4: optional double preDayClose, // closing price from previous trading day
+  5: optional list<StockDataPoint> datePoints,
 }
 
 struct Stocks {

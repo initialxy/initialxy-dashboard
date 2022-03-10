@@ -1,6 +1,7 @@
 import pygen
 import tornado.web
 from utils.config import get_config
+from utils.finance import CachedFinance
 from utils.storage import CachedStorage
 from utils.thrift import serialize_bin
 
@@ -37,6 +38,7 @@ class StocksHandler(BaseEndpointHandler):
 
   async def get(self) -> None:
     stocks_resp = pygen.types.Stocks(CachedStorage.get_stocks())
+    stocks_resp = CachedFinance.get_stocks_info(stocks_resp)
     self.write(serialize_bin(stocks_resp))
     self.finish()
 
