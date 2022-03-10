@@ -71,13 +71,12 @@ class CachedStorage:
   """
   Avoid hitting SD card as much as possible to extend its life span
   """
-  __is_dirty = False
   __stocks: Optional[list[pygen.types.Stock]] = None
   __tasks: Optional[list[pygen.types.Task]] = None
 
   @classmethod
   def get_stocks(cls) -> List[pygen.types.Stock]:
-    if cls.__stocks and not cls.__is_dirty:
+    if cls.__stocks:
       return cls.__stocks
 
     with Storage() as s:
@@ -87,7 +86,7 @@ class CachedStorage:
 
   @classmethod
   def get_tasks(cls) -> List[pygen.types.Task]:
-    if cls.__tasks and not cls.__is_dirty:
+    if cls.__tasks:
       return cls.__tasks
 
     with Storage() as s:

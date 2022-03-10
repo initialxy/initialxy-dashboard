@@ -1,14 +1,17 @@
 .ListItem {
-  align-items: center;
   border-bottom: 1px solid black;
   border-left: 0.5em solid black;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
   min-height: 3em;
   overflow: hidden;
   padding: 0 1em 0 1em;
   position: relative;
+}
+
+.ListItem.auto_middle {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 }
 
 .ListItem .arrow {
@@ -23,5 +26,10 @@
 }
 
 .ListItem .item_body {
+  height: 100%;
+}
+
+.ListItem.auto_middle .item_body {
+  height: auto;
   flex: 1 0 0;
 }
