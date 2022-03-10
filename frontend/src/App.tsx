@@ -4,6 +4,8 @@ import { DateTime } from "luxon";
 import { defineComponent, onMounted } from "vue";
 import { sleep } from "./utils/Misc";
 import Clock from "./components/Clock";
+import StocksView from "./components/StocksView";
+import TasksView from "./components/TasksView";
 import store from "./store";
 
 const UPDATE_EVERY_MS = 60000;
@@ -13,12 +15,10 @@ async function updateLoop(): Promise<void> {
     await sleep(
       UPDATE_EVERY_MS - (DateTime.now().toMillis() % UPDATE_EVERY_MS),
     );
-    if (store.state.config != null) {
-      await Promise.all([
-        store.dispatch("fetchStocks"),
-        store.dispatch("fetchTasks"),
-      ]);
-    }
+    await Promise.all([
+      store.dispatch("fetchStocks"),
+      store.dispatch("fetchTasks"),
+    ]);
   }
 }
 
@@ -38,6 +38,14 @@ export default defineComponent({
             timeFormat={store.state.config.timeFormat}
             dateFormat={store.state.config.dateFormat}
           />
+          <div class="contents">
+            <div class="stocks_container">
+              <StocksView stocksResp={store.state.stocksResp} />
+            </div>
+            <div class="tasks_container">
+              <TasksView tasksResp={store.state.tasksResp} />
+            </div>
+          </div>
         </div>
     );
   }

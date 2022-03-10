@@ -1,6 +1,6 @@
 import "./Clock.css";
-import { defineComponent, ref, Ref, onMounted } from "vue";
 import { DateTime } from "luxon";
+import { defineComponent, ref, Ref, onMounted } from "vue";
 import { sleep } from "../utils/Misc";
 
 const UPDATE_EVERY_MS = 60000;
