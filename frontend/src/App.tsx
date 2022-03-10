@@ -1,16 +1,18 @@
 import "./App.css";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
+import { DateTime } from "luxon";
 import { defineComponent, onMounted } from "vue";
 import { sleep } from "./utils/Misc";
 import Clock from "./components/Clock";
-import moment from "moment";
 import store from "./store";
 
 const UPDATE_EVERY_MS = 60000;
 
 async function updateLoop(): Promise<void> {
   while (true) {
-    await sleep(UPDATE_EVERY_MS - (moment().valueOf() % UPDATE_EVERY_MS));
+    await sleep(
+      UPDATE_EVERY_MS - (DateTime.now().toMillis() % UPDATE_EVERY_MS),
+    );
     if (store.state.config != null) {
       await Promise.all([
         store.dispatch("fetchStocks"),

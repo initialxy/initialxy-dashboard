@@ -1,9 +1,9 @@
 {
   "port": 80,
   "devPort": 8000,
-  "timeFormat": "k:mm",
-  "dateFormat": "MMMM D, YYYY",
-  "dateShortFormat": "MMM D",
+  "timeFormat": "H:mm",
+  "dateFormat": "MMMM d, yyyy",
+  "dateShortFormat": "MMM d",
   "epaperModel": "epd7in5_V2",
   "resolution": "800x480"
 }

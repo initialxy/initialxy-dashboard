@@ -1,14 +1,16 @@
 import "./Clock.css";
 import { defineComponent, ref, Ref, onMounted } from "vue";
-import moment from "moment";
+import { DateTime } from "luxon";
 import { sleep } from "../utils/Misc";
 
 const UPDATE_EVERY_MS = 60000;
 
 async function updateLoop(timestamp: Ref<number>): Promise<void> {
   while (true) {
-    await sleep(UPDATE_EVERY_MS - (moment().valueOf() % UPDATE_EVERY_MS));
-    timestamp.value = moment().valueOf();
+    await sleep(
+      UPDATE_EVERY_MS - (DateTime.now().toMillis() % UPDATE_EVERY_MS),
+    );
+    timestamp.value = DateTime.now().toMillis();
   }
 }
 
@@ -19,7 +21,7 @@ export default defineComponent({
     dateFormat: { type: String, required: true },
   },
   setup(props) {
-    const timestamp = ref(moment().valueOf());
+    const timestamp = ref(DateTime.now().toMillis());
 
     onMounted(async () => {
       updateLoop(timestamp);
@@ -27,14 +29,14 @@ export default defineComponent({
 
     return () => (
       <div class="Clock">
-          <div class="display">
-              <span class="time">
-                  {moment(timestamp.value).format(props.timeFormat)}
-              </span>
-              <span class="date">
-                  {moment(timestamp.value).format(props.dateFormat)}
-              </span>
-          </div>
+        <div class="display">
+          <span class="time">
+            {DateTime.fromMillis(timestamp.value).toFormat(props.timeFormat)}
+          </span>
+          <span class="date">
+            {DateTime.fromMillis(timestamp.value).toFormat(props.dateFormat)}
+          </span>
+        </div>
       </div>);
   }
 });

@@ -41,9 +41,9 @@ def get_config() -> Config:
       if not args.debug else config_dict.get("devPort", 8000),
     args.debug,
     args.save_img,
-    config_dict.get("timeFormat", "k:mm"),
-    config_dict.get("dateFormat", "YYYY-MM-DD"),
-    config_dict.get("dateShortFormat", "MM-DD"),
+    config_dict.get("timeFormat", "h:mm a"),
+    config_dict.get("dateFormat", "yyyy-MM-dd"),
+    config_dict.get("dateShortFormat", "MM-dd"),
     config_dict["epaperModel"],
     config_dict["resolution"],
   )
