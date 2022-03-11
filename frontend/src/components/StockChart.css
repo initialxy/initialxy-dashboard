@@ -20,7 +20,20 @@
   width: 100%;
 }
 
+/* Doesn't look like we have enough resolution to do a candle stick.
 .StockChart .inner .bar {
+  background-image: url("/bar.png");
+  background-position: center;
+  background-repeat: repeat-y;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
+  box-sizing: border-box;
+  min-height: 3%;
+  position: absolute;
+}
+*/
+
+.StockChart .inner .candle {
   background-color: black;
   min-height: 3%;
   position: absolute;

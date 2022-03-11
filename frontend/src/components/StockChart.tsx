@@ -49,21 +49,24 @@ export default defineComponent({
                 "top": getVPct(stock.preDayClose, chartMin, chartMax) + "%",
               })}
             />
-            {stock.dataPoints.map((d, i) => (
-              <div
-                class="bar"
-                style={stx({
-                  "top": getVPct(d.max, chartMin, chartMax) + "%",
-                  "left": getHPct(i, props.numPoints) + "%",
-                  "width": widthPct + "%",
-                  "height": getVPct(
-                    chartMax - (d.max - d.min),
-                    chartMin,
-                    chartMax,
-                  ) + "%",
-                })}
-              />
-            ))}
+            {stock.dataPoints.map((d, i) => {
+              const high = Math.max(d.open, d.close);
+              const low = Math.min(d.open, d.close);
+              return (
+                <div
+                  class="candle"
+                  style={stx({
+                    "top": getVPct(high, chartMin, chartMax) + "%",
+                    "left": getHPct(i, props.numPoints) + "%",
+                    "width": widthPct + "%",
+                    "height": getVPct(
+                      chartMax - (high - low),
+                      chartMin,
+                      chartMax,
+                    ) + "%",
+                  })}
+                />);
+            })}
           </div>
         </div>
       ) : <div class="StockChart" />;
