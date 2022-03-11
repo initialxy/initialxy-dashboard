@@ -51,7 +51,7 @@ class Storage:
 
   def get_tasks(self) -> List[pygen.types.Task]:
     res = self.__execute(
-      "SELECT rowid, ord, desc, ts FROM tasks ORDER BY ord DESC, ts NULLS LAST",
+      "SELECT rowid, ord, desc, ts FROM tasks ORDER BY ord DESC, ts",
     )
     return [
       pygen.types.Task(rowid, pri, desc, ts)
