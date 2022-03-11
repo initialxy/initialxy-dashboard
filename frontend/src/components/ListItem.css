@@ -1,10 +1,10 @@
 .ListItem {
   border-bottom: 1px solid black;
-  border-left: 0.5em solid black;
+  border-left: 0.5rem solid black;
   box-sizing: border-box;
-  min-height: 3em;
+  min-height: 3rem;
   overflow: hidden;
-  padding: 0 1em 0 1em;
+  padding: 0 1rem 0 1rem;
   position: relative;
 }
 
@@ -16,17 +16,18 @@
 
 .ListItem .arrow {
   background-color: black;
-  height: 0.5em;
-  left: -0.25em;
-  margin-top: -0.25em;
+  height: 0.5rem;
+  left: -0.25rem;
+  margin-top: -0.25rem;
   position: absolute;
   top: 50%;
   transform: rotate(45deg);
-  width: 0.5em;
+  width: 0.5rem;
 }
 
 .ListItem .item_body {
   height: 100%;
+  width: 100%;
 }
 
 .ListItem.auto_middle .item_body {

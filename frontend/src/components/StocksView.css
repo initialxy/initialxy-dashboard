@@ -16,7 +16,7 @@
 }
 
 .StocksView .row .summary div {
-  margin: 0.2em 0 0.2em 0;
+  font-size: 1.3em;
 }
 
 .StocksView .row .summary,
@@ -32,7 +32,7 @@
 .StocksView .row .chart {
   flex: 1 1 0;
   height: 100%;
-  padding: 1em 0 1em 1em;
+  padding: 1rem 0 1rem 1rem;
   box-sizing: border-box;
   position: relative;
 }

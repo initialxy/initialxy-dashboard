@@ -10,15 +10,15 @@
 .Clock .display {
   color: white;
   vertical-align: baseline;
-  padding: 1em;
+  padding: 1rem;
 }
 
 .Clock .display .time {
-  font-size: 3em;
+  font-size: 3rem;
   font-weight: 500;
 }
 
 .Clock .display .date {
-  margin-left: 1em;
-  font-size: 1.5em;
+  margin-left: 1rem;
+  font-size: 1.5rem;
 }
