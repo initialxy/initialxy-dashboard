@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Any
 
 import pygen
 import yfinance as yf
@@ -14,22 +14,18 @@ MIN_REFRESH_DELAY = 275
 
 class Finance:
   @classmethod
-  def __get_market_price(cls, symbol: str, info: yf.Tickers) -> Optional[float]:
-    if symbol not in info.tickers:
+  def __get_market_price(cls, price: Optional[Any]) -> Optional[float]:
+    if price is None:
       return None
 
-    return float(info.tickers[symbol].info["regularMarketPrice"])
+    return float(price["regularMarketPrice"])
 
   @classmethod
-  def __get_pre_day_close(
-    cls,
-    symbol: str,
-    info: yf.Tickers,
-  ) -> Optional[float]:
-    if symbol not in info.tickers:
+  def __get_pre_day_close(cls, price: Optional[Any]) -> Optional[float]:
+    if price is None:
       return None
 
-    return float(info.tickers[symbol].info["regularMarketPreviousClose"])
+    return float(price["regularMarketPreviousClose"])
 
   @classmethod
   def __get_price_history(
@@ -67,13 +63,18 @@ class Finance:
       interval="5m",
       group_by="ticker",
     )
+    symbol_to_price = {
+      s.symbol: info.tickers[s.symbol].stats()["price"]
+      for s in stocks.stocks
+      if s.symbol in info.tickers
+    }
 
     extracted_stocks = [
       pygen.types.Stock(
         s.ord,
         s.symbol,
-        cls.__get_market_price(s.symbol, info),
-        cls.__get_pre_day_close(s.symbol, info),
+        cls.__get_market_price(symbol_to_price.get(s.symbol)),
+        cls.__get_pre_day_close(symbol_to_price.get(s.symbol)),
         cls.__get_price_history(
           history if len(stocks.stocks) == 1 else history.get(s.symbol),
         ),
@@ -89,7 +90,7 @@ def get_market_today_open_close_ts() -> tuple[int, int]:
   format = "%Y-%d-%m %H-%M"
   open = datetime.strptime(date_str + " " + CONFIG.market_open_time, format)
   close = datetime.strptime(date_str + " " + CONFIG.market_close_time, format)
-  return open.timestamp(), close.timestamp()
+  return int(open.timestamp()), int(close.timestamp())
 
 def get_num_points_in_day() -> int:
   open_ts, close_ts = get_market_today_open_close_ts()

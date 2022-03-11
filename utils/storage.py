@@ -81,7 +81,6 @@ class CachedStorage:
 
     with Storage() as s:
       cls.__stocks = s.get_stocks()
-      cls.__is_dirty = False
       return cls.__stocks
 
   @classmethod
@@ -91,5 +90,4 @@ class CachedStorage:
 
     with Storage() as s:
       cls.__tasks = s.get_tasks()
-      cls.__is_dirty = False
       return cls.__tasks
