@@ -2,6 +2,7 @@ import "./StocksView.css";
 import { defineComponent } from "vue";
 import { Stocks } from "../jsgen/Stocks";
 import ListItem from "./ListItem";
+import StockChart from "./StockChart";
 
 const NUM_ITEMS_IN_VIEW = 4;
 
@@ -35,8 +36,7 @@ export default defineComponent({
                   %
                 </div>
               </div>
-              <div class="chart">
-              </div>
+              <StockChart class="chart" stock={stock} />
             </div>
           </ListItem>
         ))}

@@ -1,7 +1,6 @@
 import "./ListItem.css";
 import { defineComponent } from "vue";
 import { emptyFunc, clx } from "../utils/Misc";
-import { propsToAttrMap } from "@vue/shared";
 
 export default defineComponent({
   name: "ListItem",

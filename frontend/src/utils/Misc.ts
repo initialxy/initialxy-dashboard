@@ -20,3 +20,11 @@ export function clx(clsDef: { [cls: string]: boolean }): string {
   }
   return classes.join(" ");
 }
+
+export function stx(styleDef: {[nane: string]: string}): string {
+  const styles = [];
+  for (const p in styleDef) {
+    styles.push(`${p}: ${styleDef[p]};`);
+  }
+  return styles.join(" ");
+}

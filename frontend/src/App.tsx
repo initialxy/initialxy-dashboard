@@ -30,26 +30,24 @@ export default defineComponent({
       updateLoop();
     });
 
-    return () => (
-      store.state.config == null ?
-        <div class="App" /> :
-        <div class="App">
-          <Clock
-            timeFormat={store.state.config.timeFormat}
-            dateFormat={store.state.config.dateFormat}
-          />
-          <div class="contents">
-            <div class="stocks_container">
-              <StocksView stocksResp={store.state.stocksResp} />
-            </div>
-            <div class="tasks_container">
-              <TasksView
-                tasksResp={store.state.tasksResp}
-                dateFormat={store.state.config.dateShortFormat}
-              />
-            </div>
+    return () => store.state.config != null ? (
+      <div class="App">
+        <Clock
+          timeFormat={store.state.config.timeFormat}
+          dateFormat={store.state.config.dateFormat}
+        />
+        <div class="contents">
+          <div class="stocks_container">
+            <StocksView stocksResp={store.state.stocksResp} />
+          </div>
+          <div class="tasks_container">
+            <TasksView
+              tasksResp={store.state.tasksResp}
+              dateFormat={store.state.config.dateShortFormat}
+            />
           </div>
         </div>
-    );
+      </div>
+    ) : <div class="App" />;
   }
 });

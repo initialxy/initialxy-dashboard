@@ -32,6 +32,7 @@
 .StocksView .row .chart {
   flex: 1 1 0;
   height: 100%;
-  padding-left: 1em;
+  padding: 1em 0 1em 1em;
+  box-sizing: border-box;
   position: relative;
 }
