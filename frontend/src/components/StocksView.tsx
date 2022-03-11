@@ -1,6 +1,7 @@
 import "./StocksView.css";
 import { defineComponent } from "vue";
 import { Stocks } from "../jsgen/Stocks";
+import { stx } from "../utils/Misc";
 import ListItem from "./ListItem";
 import StockChart from "./StockChart";
 
@@ -15,13 +16,16 @@ export default defineComponent({
   name: "StocksView",
   props: {
     stocksResp: { type: Object as () => Stocks | null },
+    numPoints: { type: Number, required: true },
   },
   setup(props) {
     const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100;
     return () => (
       <div class="StocksView">
         {(props.stocksResp?.stocks || []).map(stock => (
-          <ListItem style={`height: ${heightPct}%;`}>
+          <ListItem
+            style={stx({ "height": heightPct + "%" })}
+          >
             <div class="row">
               <div class="summary">
                 <div class="symbol">{stock.symbol}</div>
@@ -36,7 +40,10 @@ export default defineComponent({
                   %
                 </div>
               </div>
-              <StockChart class="chart" stock={stock} />
+              <StockChart
+                class="chart" stock={stock}
+                numPoints={props.numPoints}
+              />
             </div>
           </ListItem>
         ))}

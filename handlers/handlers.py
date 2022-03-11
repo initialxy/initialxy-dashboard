@@ -1,7 +1,7 @@
 import pygen
 import tornado.web
 from utils.config import get_config
-from utils.finance import CachedFinance
+from utils.finance import CachedFinance, get_num_points_in_day
 from utils.storage import CachedStorage
 from utils.thrift import serialize_bin
 
@@ -25,7 +25,10 @@ class ConfigHandler(BaseEndpointHandler):
 
   async def get(self) -> None:
     config_resp = pygen.types.FrontEndConfig(
-      CONFIG.time_format, CONFIG.date_format, CONFIG.date_short_format,
+      CONFIG.time_format,
+      CONFIG.date_format,
+      CONFIG.date_short_format,
+      get_num_points_in_day(),
     )
     self.write(serialize_bin(config_resp))
     self.finish()

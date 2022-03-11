@@ -12,6 +12,7 @@ export default createStore({
   },
   mutations: {
     setConfig(state, config: FrontEndConfig): void {
+      console.log(config);
       state.config = config;
     },
     setStocks(state, stocksResp: Stocks): void {

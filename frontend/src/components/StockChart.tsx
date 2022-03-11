@@ -3,8 +3,6 @@ import { defineComponent } from "vue";
 import { Stock } from "../jsgen/Stock";
 import { stx } from "../utils/Misc";
 
-const TOT_POINTS = 79;
-
 function getRange(stock: Stock): Array<number | null> {
   if (stock.preDayClose == null || stock.dataPoints == null) {
     return [null, null];
@@ -24,16 +22,19 @@ function getVPct(v: number, chartMin: number, chartMax: number): number {
     50;
 }
 
-function getHPct(i: number): number {
-  return Math.round(i / TOT_POINTS * 10000) / 100;
+function getHPct(i: number, tot: number): number {
+  return Math.round(i / tot * 10000) / 100;
 }
 
 export default defineComponent({
   name: "StockChart",
-  props: { stock: { type: Stock, required: true } },
+  props: {
+    stock: { type: Stock, required: true },
+    numPoints: { type: Number, required: true },
+  },
   setup(props) {
-    const widthPct = Math.round(1 / TOT_POINTS * 10000) / 100;
     return () => {
+      const widthPct = Math.round(1 / props.numPoints * 10000) / 100;
       const stock = props.stock;
       const [chartMin, chartMax] = getRange(stock);
       return stock.dataPoints != null &&
@@ -45,21 +46,21 @@ export default defineComponent({
             <div
               class="line"
               style={stx({
-                "top": `${getVPct(stock.preDayClose, chartMin, chartMax)}%`,
+                "top": getVPct(stock.preDayClose, chartMin, chartMax) + "%",
               })}
             />
             {stock.dataPoints.map((d, i) => (
               <div
                 class="bar"
                 style={stx({
-                  "top": `${getVPct(d.max, chartMin, chartMax)}%`,
-                  "left": `${getHPct(i)}%`,
-                  "width": `${widthPct}%`,
-                  "height": `${getVPct(
+                  "top": getVPct(d.max, chartMin, chartMax) + "%",
+                  "left": getHPct(i, props.numPoints) + "%",
+                  "width": widthPct + "%",
+                  "height": getVPct(
                     chartMax - (d.max - d.min),
                     chartMin,
                     chartMax,
-                  )}%`,
+                  ) + "%",
                 })}
               />
             ))}

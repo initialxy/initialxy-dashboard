@@ -21,6 +21,9 @@ class Config:
   date_short_format: str
   epaper_model: str
   resolution: str
+  market_open_time: str
+  market_close_time: str
+  market_time_zone: str
 
 
 @lru_cache(maxsize=1)
@@ -46,4 +49,7 @@ def get_config() -> Config:
     config_dict.get("dateShortFormat", "MM-dd"),
     config_dict["epaperModel"],
     config_dict["resolution"],
+    config_dict.get("marketOpenTime", "09-30"),
+    config_dict.get("marketCloseTime", "16-00"),
+    config_dict.get("marketTimeZone", "America/New_York"),
   )

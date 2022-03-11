@@ -3,6 +3,7 @@ struct FrontEndConfig {
   1: required string timeFormat,
   2: required string dateFormat,
   3: required string dateShortFormat,
+  4: required i32 numDataPointsInDay,
 }
 
 struct Task {
@@ -28,7 +29,7 @@ struct Stock {
   2: required string symbol,
   3: optional double curMarketPrice,
   4: optional double preDayClose, // closing price from previous trading day
-  5: optional list<StockDataPoint> datePoints,
+  5: optional list<StockDataPoint> dataPoints,
 }
 
 struct Stocks {

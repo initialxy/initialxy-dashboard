@@ -38,7 +38,10 @@ export default defineComponent({
         />
         <div class="contents">
           <div class="stocks_container">
-            <StocksView stocksResp={store.state.stocksResp} />
+            <StocksView
+              stocksResp={store.state.stocksResp}
+              numPoints={store.state.config.numDataPointsInDay}
+            />
           </div>
           <div class="tasks_container">
             <TasksView

@@ -1,9 +1,14 @@
-import time
+from datetime import datetime
 from typing import List, Optional
 
 import pygen
 import yfinance as yf
 from pandas import DataFrame
+from pytz import timezone
+
+from utils.config import get_config
+
+CONFIG = get_config()
 
 MIN_REFRESH_DELAY = 275
 
@@ -78,6 +83,18 @@ class Finance:
 
     return pygen.types.Stocks(extracted_stocks)
 
+def get_market_today_open_close_ts() -> tuple[int, int]:
+  now = datetime.now(timezone(CONFIG.market_time_zone))
+  date_str = now.strftime("%Y-%d-%m")
+  format = "%Y-%d-%m %H-%M"
+  open = datetime.strptime(date_str + " " + CONFIG.market_open_time, format)
+  close = datetime.strptime(date_str + " " + CONFIG.market_close_time, format)
+  return open.timestamp(), close.timestamp()
+
+def get_num_points_in_day() -> int:
+  open_ts, close_ts = get_market_today_open_close_ts()
+  return (close_ts - open_ts) // 300 + 1
+
 class CachedFinance:
   """
   Don't hit Yahoo Finance too frequently
@@ -91,14 +108,18 @@ class CachedFinance:
     stocks: pygen.types.Stocks,
   ) -> pygen.types.Stocks:
     symbols = {s.symbol for s in stocks.stocks}
+    open_ts, close_ts = get_market_today_open_close_ts()
+    now_ts = datetime.now().timestamp()
+    is_market_open = open_ts <= now_ts <= (close_ts + 300)
+
     if (
       not cls.__last_fetch_time or
-      cls.__last_fetch_time + MIN_REFRESH_DELAY < time.time() or
       not cls.__stocks or
-      {s.symbol for s in cls.__stocks.stocks} != symbols
+      {s.symbol for s in cls.__stocks.stocks} != symbols or
+      (cls.__last_fetch_time + MIN_REFRESH_DELAY < now_ts and is_market_open)
     ):
       res = Finance.get_stocks_data(stocks)
       cls.__stocks = res
-      cls.__last_fetch_time = time.time()
+      cls.__last_fetch_time = datetime.now().timestamp()
       return res
     return cls.__stocks
