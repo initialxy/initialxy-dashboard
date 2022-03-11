@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Tuple
 
 import pygen
 import yfinance as yf
@@ -84,7 +84,7 @@ class Finance:
 
     return pygen.types.Stocks(extracted_stocks)
 
-def get_market_today_open_close_ts() -> tuple[int, int]:
+def get_market_today_open_close_ts() -> Tuple[int, int]:
   now = datetime.now(timezone(CONFIG.market_time_zone))
   date_str = now.strftime("%Y-%d-%m")
   format = "%Y-%d-%m %H-%M"
