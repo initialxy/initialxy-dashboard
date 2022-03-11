@@ -42,7 +42,7 @@ try:
       epd.display(epd.getbuffer(image))
       time.sleep(10)
 
-    driver.close()
+    driver.quit()
     logging.info("Goto Sleep...")
     epd.Clear()
     epd.sleep()
