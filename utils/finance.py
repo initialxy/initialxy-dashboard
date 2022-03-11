@@ -1,5 +1,6 @@
+from copy import copy
 from datetime import datetime
-from typing import List, Optional, Any, Tuple
+from typing import Any, List, Optional, Tuple
 
 import pygen
 import yfinance as yf
@@ -10,7 +11,8 @@ from utils.config import get_config
 
 CONFIG = get_config()
 
-MIN_REFRESH_DELAY = 275
+MIN_UPDATE_DELAY = 275
+MIN_REFETCH_DELAY = 30
 
 class Finance:
   @classmethod
@@ -51,7 +53,7 @@ class Finance:
     stocks: pygen.types.Stocks,
   ) -> pygen.types.Stocks:
     if len(stocks.stocks) == 0:
-      return stocks
+      return copy(stocks)
 
     symbols = " ".join([s.symbol for s in stocks.stocks])
 
@@ -84,18 +86,6 @@ class Finance:
 
     return pygen.types.Stocks(extracted_stocks)
 
-def get_market_today_open_close_ts() -> Tuple[int, int]:
-  now = datetime.now(timezone(CONFIG.market_time_zone))
-  date_str = now.strftime("%Y-%d-%m")
-  format = "%Y-%d-%m %H-%M"
-  open = datetime.strptime(date_str + " " + CONFIG.market_open_time, format)
-  close = datetime.strptime(date_str + " " + CONFIG.market_close_time, format)
-  return int(open.timestamp()), int(close.timestamp())
-
-def get_num_points_in_day() -> int:
-  open_ts, close_ts = get_market_today_open_close_ts()
-  return (close_ts - open_ts) // 300 + 1
-
 class CachedFinance:
   """
   Don't hit Yahoo Finance too frequently
@@ -104,23 +94,92 @@ class CachedFinance:
   __last_fetch_time: Optional[float] = None
 
   @classmethod
+  def get_market_today_open_close_ts(cls) -> Tuple[int, int]:
+    tz = timezone(CONFIG.market_time_zone)
+    now = datetime.now(tz)
+    offset = now.strftime("%z")
+    date_str = now.strftime("%Y-%d-%m")
+    format = "%Y-%d-%m %H-%M %z"
+    open_dt = datetime.strptime(
+      "%s %s %s" % (date_str, CONFIG.market_open_time, offset),
+      format,
+    ).astimezone(tz)
+    close_dt = datetime.strptime(
+      "%s %s %s" % (date_str, CONFIG.market_close_time, offset),
+      format,
+    ).astimezone(tz)
+    return int(open_dt.timestamp()), int(close_dt.timestamp())
+
+  @classmethod
+  def get_num_points_in_day(cls) -> int:
+    open_ts, close_ts = cls.get_market_today_open_close_ts()
+    return (close_ts - open_ts) // 300 + 1
+
+  @classmethod
+  def is_market_open(cls) -> bool:
+    open_ts, close_ts = cls.get_market_today_open_close_ts()
+    now = datetime.now(timezone(CONFIG.market_time_zone))
+    now_ts = now.timestamp()
+
+    return (
+      open_ts <= now_ts <= (close_ts + 300) and # 5 mins leeway to allow last poll
+      now.strftime("%w") not in {"0", "6"} # Not a weekend
+    )
+
+  @classmethod
+  def __create_results_with_cache(
+    cls,
+    stocks: pygen.types.Stocks,
+  ) -> pygen.types.Stocks:
+    if not cls.__stocks:
+      return copy(stocks)
+
+    lookup = {s.symbol: s for s in cls.__stocks.stocks}
+    return pygen.types.Stocks([
+      pygen.types.Stock(
+        s.ord,
+        s.symbol,
+        lookup[s.symbol].curMarketPrice if s.symbol in lookup else None,
+        lookup[s.symbol].preDayClose if s.symbol in lookup else None,
+        lookup[s.symbol].dataPoints if s.symbol in lookup else None,
+      )
+      for s in stocks.stocks
+    ])
+
+  @classmethod
   def get_stocks_info(
     cls,
     stocks: pygen.types.Stocks,
   ) -> pygen.types.Stocks:
     symbols = {s.symbol for s in stocks.stocks}
-    open_ts, close_ts = get_market_today_open_close_ts()
+    symbols_in_cache = (
+      {s.symbol for s in cls.__stocks.stocks if s.curMarketPrice is not None}
+      if cls.__stocks else set()
+    )
     now_ts = datetime.now().timestamp()
-    is_market_open = open_ts <= now_ts <= (close_ts + 300)
+    is_market_open = cls.is_market_open()
 
     if (
       not cls.__last_fetch_time or
       not cls.__stocks or
-      {s.symbol for s in cls.__stocks.stocks} != symbols or
-      (cls.__last_fetch_time + MIN_REFRESH_DELAY < now_ts and is_market_open)
+      (
+        len(symbols - symbols_in_cache) > 0 and
+        cls.__last_fetch_time + MIN_REFETCH_DELAY < now_ts
+      ) or
+      (is_market_open and cls.__last_fetch_time + MIN_UPDATE_DELAY < now_ts)
     ):
       res = Finance.get_stocks_data(stocks)
       cls.__stocks = res
       cls.__last_fetch_time = datetime.now().timestamp()
       return res
+
+    if (
+      [s.symbol for s in cls.__stocks.stocks] !=
+      [s.symbol for s in stocks.stocks]
+    ):
+      # There are changes to order or not allowed to refetch yet. Just pull data
+      # over from cache.
+      cls.__stocks = cls.__create_results_with_cache(stocks)
+      return cls.__stocks
+
     return cls.__stocks

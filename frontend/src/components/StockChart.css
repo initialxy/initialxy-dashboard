@@ -22,7 +22,6 @@
 
 .StockChart .inner .bar {
   background-color: black;
-  height: 2px;
   min-height: 3%;
   position: absolute;
 }
