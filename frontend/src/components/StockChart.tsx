@@ -31,6 +31,7 @@ export default defineComponent({
   props: {
     stock: { type: Stock, required: true },
     numPoints: { type: Number, required: true },
+    showFullCandle: { type: Boolean },
   },
   setup(props) {
     return () => {
@@ -49,6 +50,22 @@ export default defineComponent({
                 "top": getVPct(stock.preDayClose, chartMin, chartMax) + "%",
               })}
             />
+            {props.showFullCandle ?
+              stock.dataPoints.map((d, i) => (
+                <div
+                  class="bar"
+                  style={stx({
+                    "top": getVPct(d.max, chartMin, chartMax) + "%",
+                    "left": getHPct(i, props.numPoints) + "%",
+                    "width": widthPct + "%",
+                    "height": getVPct(
+                      chartMax - (d.max - d.min),
+                      chartMin,
+                      chartMax,
+                    ) + "%",
+                  })}
+                />)
+              ) : null}
             {stock.dataPoints.map((d, i) => {
               const high = Math.max(d.open, d.close);
               const low = Math.min(d.open, d.close);

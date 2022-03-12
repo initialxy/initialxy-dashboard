@@ -3,6 +3,7 @@ __pycache__/
 **/__pycache__/
 pygen/**/**.pyi
 *.db
+test.png
 
 frontend/package-lock.json
 frontend/node_modules
