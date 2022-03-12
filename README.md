@@ -1,4 +1,5 @@
 # initialxy-dashboard
+![Dashboard](dashboard_pic.jpg)
 
 This is my personal Raspberry Pi project, which uses an always-on e-ink screen as a dashboard. It shows three secions: date and time, stocks and tasks. It's optimized specifically for the Waveshare 7.5" monochrome 800x480px e-ink screen that I purchased. So it's probably not useful elsewhare.
 
