@@ -151,10 +151,10 @@ class CachedFinance:
     cls,
     stocks: pygen.types.Stocks,
   ) -> pygen.types.Stocks:
-    symbols = {s.symbol for s in stocks.stocks}
+    symbols = [s.symbol for s in stocks.stocks]
     symbols_in_cache = (
-      {s.symbol for s in cls.__stocks.stocks if s.curMarketPrice is not None}
-      if cls.__stocks else set()
+      [s.symbol for s in cls.__stocks.stocks if s.curMarketPrice is not None]
+      if cls.__stocks else []
     )
     now_ts = datetime.now().timestamp()
     is_market_open = cls.is_market_open()
@@ -163,7 +163,7 @@ class CachedFinance:
       not cls.__last_fetch_time or
       not cls.__stocks or
       (
-        len(symbols - symbols_in_cache) > 0 and
+        set(symbols) - set(symbols_in_cache) and
         cls.__last_fetch_time + MIN_REFETCH_DELAY < now_ts
       ) or
       (is_market_open and cls.__last_fetch_time + MIN_UPDATE_DELAY < now_ts)
@@ -173,10 +173,7 @@ class CachedFinance:
       cls.__last_fetch_time = datetime.now().timestamp()
       return res
 
-    if (
-      [s.symbol for s in cls.__stocks.stocks] !=
-      [s.symbol for s in stocks.stocks]
-    ):
+    if symbols != symbols_in_cache:
       # There are changes to order or not allowed to refetch yet. Just pull data
       # over from cache.
       cls.__stocks = cls.__create_results_with_cache(stocks)

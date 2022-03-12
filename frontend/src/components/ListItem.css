@@ -1,28 +1,18 @@
 .ListItem {
-  border-bottom: 1px solid black;
-  border-left: 0.5rem solid black;
+  border: 0.15rem solid black;
+  border-radius: 0.5rem;
   box-sizing: border-box;
   min-height: 3rem;
   overflow: hidden;
   padding: 0 1rem 0 1rem;
   position: relative;
+  background-color: white;
 }
 
 .ListItem.auto_middle {
   align-items: center;
   display: flex;
   flex-direction: row;
-}
-
-.ListItem .arrow {
-  background-color: black;
-  height: 0.5rem;
-  left: -0.25rem;
-  margin-top: -0.25rem;
-  position: absolute;
-  top: 50%;
-  transform: rotate(45deg);
-  width: 0.5rem;
 }
 
 .ListItem .item_body {

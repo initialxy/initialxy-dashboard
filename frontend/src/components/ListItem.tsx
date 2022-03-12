@@ -8,7 +8,6 @@ export default defineComponent({
   setup(props, ctx) {
     return () => (
       <div class={clx({ "ListItem": true, "auto_middle": props.autoMiddle })}>
-        <div class="arrow" />
         <div class="item_body">
           {(ctx.slots.default || emptyFunc)()}
         </div>
