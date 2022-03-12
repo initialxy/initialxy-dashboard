@@ -48,5 +48,5 @@ if __name__ == "__main__":
   tornado.ioloop.IOLoop.current().call_later(1, init_display)
   try:
     tornado.ioloop.IOLoop.current().start()
-  except KeyboardInterrupt:
+  except (Exception, KeyboardInterrupt):
     Display.close()

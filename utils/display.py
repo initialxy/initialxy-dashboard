@@ -36,7 +36,6 @@ class Display:
 
     if not cls.__epd and not CONFIG.save_image:
       cls.__epd = epaper.epaper(CONFIG.epaper_model).EPD()
-      cls.__epd.init()
 
   @classmethod
   def refresh(cls):
@@ -48,6 +47,7 @@ class Display:
     if CONFIG.save_image:
       image.save(CONFIG.save_image)
     else:
+      cls.__epd.init()
       cls.__epd.display(cls.__epd.getbuffer(image))
       cls.__epd.sleep()
 
@@ -57,6 +57,7 @@ class Display:
       cls.__driver.quit()
       cls.__driver = None
     if cls.__epd:
+      cls.__epd.init()
       cls.__epd.Clear()
       cls.__epd.sleep()
       cls.__epd = None
