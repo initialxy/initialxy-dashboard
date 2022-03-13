@@ -15,10 +15,6 @@
   font-weight: 500;
 }
 
-.StocksView .row .summary div {
-  font-size: 1.3em;
-}
-
 .StocksView .row .summary,
 .StocksView .row .chart {
   overflow: hidden;

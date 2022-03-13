@@ -1,5 +1,5 @@
 html, body, #app {
-  background-color: white;
+  background-color: black;
   height: 100%;
   margin: 0;
   overflow: hidden;
@@ -8,6 +8,7 @@ html, body, #app {
 
 .App {
   background-color: black;
+  background-image: url("/background.png");
   color: black;
   display: flex;
   flex-direction: column;
@@ -17,8 +18,8 @@ html, body, #app {
   margin: 0;
   overflow: hidden;
   padding: 0;
+  position: fixed;
   width: 100%;
-  background-image: url("/background.png");
 }
 
 .App .contents {

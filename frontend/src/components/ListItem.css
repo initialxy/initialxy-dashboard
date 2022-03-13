@@ -1,12 +1,12 @@
 .ListItem {
-  border: 0.15rem solid black;
+  background-color: white;
   border-radius: 0.5rem;
+  border: 0.15rem solid black;
   box-sizing: border-box;
   min-height: 3rem;
   overflow: hidden;
   padding: 0 1rem 0 1rem;
   position: relative;
-  background-color: white;
 }
 
 .ListItem.auto_middle {
@@ -23,4 +23,10 @@
 .ListItem.auto_middle .item_body {
   height: auto;
   flex: 1 0 0;
+}
+
+@media (min-width: 800px) {
+  .ListItem {
+    font-size: 1.3em;
+  }
 }
