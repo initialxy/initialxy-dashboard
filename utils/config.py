@@ -13,9 +13,10 @@ CONFIG_FILE_NAME = "appconfig.json"
 
 @dataclass
 class Config:
-  port: int
   is_debug: bool
+  is_no_display: bool
   save_image: Optional[Path]
+  port: int
   time_format: str
   date_format: str
   date_short_format: str
@@ -40,10 +41,11 @@ def get_config() -> Config:
   config_dict = json.loads(contents)
 
   return Config(
+    args.debug,
+    args.no_display,
+    args.save_img,
     config_dict.get("port", 80)
       if not args.debug else config_dict.get("devPort", 8000),
-    args.debug,
-    args.save_img,
     config_dict.get("timeFormat", "h:mm a"),
     config_dict.get("dateFormat", "yyyy-MM-dd"),
     config_dict.get("dateShortFormat", "MM-dd"),

@@ -45,7 +45,8 @@ def init_display():
 if __name__ == "__main__":
   app = make_app()
   app.listen(CONFIG.port)
-  tornado.ioloop.IOLoop.current().call_later(1, init_display)
+  if not CONFIG.is_no_display:
+    tornado.ioloop.IOLoop.current().call_later(1, init_display)
   try:
     tornado.ioloop.IOLoop.current().start()
   except (Exception, KeyboardInterrupt):

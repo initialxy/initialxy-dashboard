@@ -24,7 +24,7 @@ To run this app in dev mode
 
     ./run --debug
 
-Then open a second terminal instance and run
+Use `--help` to see the other dev mode options. Then open a second terminal instance and run
 
     cd frontend
     npm run serve
@@ -33,13 +33,13 @@ Go to http://localhost:8080 in your browser.
 
 To run this app in prod mode without sourcing venv
 
-    sudo ./run
+    ./run
 
 Alternatively, if you opt not to use venv
 
-    sudo python3 api.py
+    python3 api.py
 
-Note that `sudo` is needed to acquire port 80.
+Note that you need to choose a port that does not require `sudo` (> 1024), because selenium does not work under root.
 
 # Configure
 Open `appconfig.json` and you can set a number of configurations. Hopefully it is self-explanatory.
