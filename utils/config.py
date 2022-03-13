@@ -51,7 +51,7 @@ def get_config() -> Config:
     config_dict.get("dateShortFormat", "MM-dd"),
     config_dict["epaperModel"],
     config_dict["resolution"],
-    config_dict.get("marketOpenTime", "09-30"),
-    config_dict.get("marketCloseTime", "16-00"),
+    config_dict.get("marketOpenTime", "09:30"),
+    config_dict.get("marketCloseTime", "16:00"),
     config_dict.get("marketTimeZone", "America/New_York"),
   )

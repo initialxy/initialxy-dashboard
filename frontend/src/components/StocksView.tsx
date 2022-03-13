@@ -1,5 +1,5 @@
 import "./StocksView.css";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { Stocks } from "../jsgen/Stocks";
 import { stx } from "../utils/Misc";
 import ListItem from "./ListItem";
@@ -15,7 +15,7 @@ function getPctChange(old: number, cur: number): number {
 export default defineComponent({
   name: "StocksView",
   props: {
-    stocksResp: { type: Object as () => Stocks | null },
+    stocksResp: { type: Object as PropType<Stocks | null> },
     numPoints: { type: Number, required: true },
   },
   setup(props) {
@@ -24,6 +24,7 @@ export default defineComponent({
       <div class="StocksView">
         {(props.stocksResp?.stocks || []).map(stock => (
           <ListItem
+            key={stock.symbol}
             style={stx({ "height": heightPct + "%" })}
           >
             <div class="row">

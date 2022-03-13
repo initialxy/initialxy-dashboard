@@ -29,15 +29,27 @@ export function stx(styleDef: { [nane: string]: string }): string {
   return styles.join(" ");
 }
 
-export function debounce(fn: () => void, ms: number): () => void {
+export function debounceBatch<T>(
+  fn: (vs: Array<T>) => void,
+  ms: number,
+): (v: T) => void {
   let scheduleID = 0;
-  return () => {
+  let batch: Array<T> = [];
+  return (props: T) => {
     if (scheduleID !== 0) {
       window.clearTimeout(scheduleID);
     }
+    batch.push(props);
     scheduleID = window.setTimeout(() => {
       scheduleID = 0;
-      fn();
+      const batch_cp = batch;
+      batch = [];
+      fn(batch_cp);
     }, ms);
   };
+}
+
+export function debounce(fn: () => void, ms: number): () => void {
+  const dfn = debounceBatch((_v) => fn(), ms);
+  return () => dfn(null);
 }

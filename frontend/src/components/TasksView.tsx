@@ -17,7 +17,7 @@ export default defineComponent({
     return () => (
       <div class="TasksView">
         {(props.tasksResp?.tasks || []).map(task => (
-          <ListItem style={`height: ${heightPct}%;`} autoMiddle>
+          <ListItem key={task.id} style={`height: ${heightPct}%;`} autoMiddle>
             <div class="row">
               <div class="desc">{task.desc}</div>
               {task.timestamp != null ?

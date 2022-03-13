@@ -13,3 +13,7 @@ export function getStocksEndpoint(): string {
 export function getTasksEndpoint(): string {
   return ROOT + "t";
 }
+
+export function isEditPath(): boolean {
+  return window.location.pathname.match(/\/e($|[/?#].*)/) != null;
+}

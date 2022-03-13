@@ -6,7 +6,7 @@
   "dateShortFormat": "MMM d",
   "epaperModel": "epd7in5_V2",
   "resolution": "800x480",
-  "marketOpenTime": "09-30",
-  "marketCloseTime": "16-00",
+  "marketOpenTime": "09:30",
+  "marketCloseTime": "16:00",
   "marketTimeZone": "America/New_York"
 }

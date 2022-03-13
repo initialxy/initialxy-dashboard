@@ -53,6 +53,7 @@ export default defineComponent({
             {props.showFullCandle ?
               stock.dataPoints.map((d, i) => (
                 <div
+                  key={i}
                   class="bar"
                   style={stx({
                     "top": getVPct(d.max, chartMin, chartMax) + "%",
@@ -71,6 +72,7 @@ export default defineComponent({
               const low = Math.min(d.open, d.close);
               return (
                 <div
+                  key={i}
                   class="candle"
                   style={stx({
                     "top": getVPct(high, chartMin, chartMax) + "%",

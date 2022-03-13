@@ -99,7 +99,7 @@ class CachedFinance:
     now = datetime.now(tz)
     offset = now.strftime("%z")
     date_str = now.strftime("%Y-%d-%m")
-    format = "%Y-%d-%m %H-%M %z"
+    format = "%Y-%d-%m %H:%M %z"
     open_dt = datetime.strptime(
       "%s %s %s" % (date_str, CONFIG.market_open_time, offset),
       format,
