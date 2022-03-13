@@ -10,7 +10,7 @@ import TasksView from "./components/TasksView";
 
 const UPDATE_EVERY_MS = 60000;
 
-async function updateLoop(): Promise<void> {
+async function genUpdateLoop(): Promise<void> {
   while (true) {
     await sleep(
       UPDATE_EVERY_MS - (DateTime.now().toMillis() % UPDATE_EVERY_MS),
@@ -27,7 +27,7 @@ export default defineComponent({
   setup() {
     onMounted(async () => {
       await store.dispatch("init");
-      updateLoop();
+      genUpdateLoop();
     });
 
     return () => store.state.config != null ? (

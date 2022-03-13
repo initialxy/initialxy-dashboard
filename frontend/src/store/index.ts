@@ -1,8 +1,8 @@
 import { createStore } from "vuex"
-import API from "../utils/API"
 import { FrontEndConfig } from "../jsgen/FrontEndConfig";
 import { Stocks } from "../jsgen/Stocks";
 import { Tasks } from "../jsgen/Tasks";
+import API from "../utils/API"
 
 export default createStore({
   state: {

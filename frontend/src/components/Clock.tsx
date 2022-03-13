@@ -5,7 +5,7 @@ import { sleep } from "../utils/Misc";
 
 const UPDATE_EVERY_MS = 60000;
 
-async function updateLoop(timestamp: Ref<number>): Promise<void> {
+async function genUpdateLoop(timestamp: Ref<number>): Promise<void> {
   while (true) {
     await sleep(
       UPDATE_EVERY_MS - (DateTime.now().toMillis() % UPDATE_EVERY_MS),
@@ -24,7 +24,7 @@ export default defineComponent({
     const timestamp = ref(DateTime.now().toMillis());
 
     onMounted(async () => {
-      updateLoop(timestamp);
+      genUpdateLoop(timestamp);
     });
 
     return () => (

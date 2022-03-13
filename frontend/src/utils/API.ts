@@ -1,11 +1,11 @@
 import { Buffer } from "buffer";
 import { FrontEndConfig } from "../jsgen/FrontEndConfig";
+import { getConfigEndpoint, getStocksEndpoint, getTasksEndpoint } from "./URL";
+import { nullthrows } from "./Misc";
 import { Stocks } from "../jsgen/Stocks";
 import { Tasks } from "../jsgen/Tasks";
-import { getConfigEndpoint, getStocksEndpoint, getTasksEndpoint } from "./URL";
 import { TFramedTransport, TBinaryProtocol, TProtocol } from "thrift";
 import Memoize from "./Memoize";
-import { nullthrows } from "./Misc";
 
 function deserializeThrift<T>(
   data: Buffer,
@@ -16,7 +16,7 @@ function deserializeThrift<T>(
   return thriftClass.read(protocal);
 }
 
-async function serializeThrift(
+async function genSerializeThrift(
   thriftClass: { write(output: TProtocol): void },
 ): Promise<Buffer> {
   return new Promise((resolve, _) => {
@@ -39,7 +39,6 @@ export default class API {
     const resp = await fetch(getConfigEndpoint());
     const respArrayBuffer = await resp.arrayBuffer();
     const res = deserializeThrift(Buffer.from(respArrayBuffer), FrontEndConfig);
-    serializeThrift(res);
     return res;
   }
 
