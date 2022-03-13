@@ -5,6 +5,7 @@ import { Tasks } from "../jsgen/Tasks";
 import { getConfigEndpoint, getStocksEndpoint, getTasksEndpoint } from "./URL";
 import { TFramedTransport, TBinaryProtocol, TProtocol } from "thrift";
 import Memoize from "./Memoize";
+import { nullthrows } from "./Misc";
 
 function deserializeThrift<T>(
   data: Buffer,
@@ -15,6 +16,21 @@ function deserializeThrift<T>(
   return thriftClass.read(protocal);
 }
 
+async function serializeThrift(
+  thriftClass: { write(output: TProtocol): void },
+): Promise<Buffer> {
+  return new Promise((resolve, _) => {
+    const trans = new TFramedTransport(
+      undefined,
+      // There are 4 bytes of header that need to be trimmed.
+      (msg?: Buffer, _seqid?: number) => resolve(nullthrows(msg).slice(4)),
+    );
+    const protocal = new TBinaryProtocol(trans);
+    thriftClass.write(protocal);
+    trans.flush();
+  });
+}
+
 // In a class, because TypeScript doesn't let you use decorator on functions,
 // but static functions in class is ok.
 export default class API {
@@ -22,7 +38,9 @@ export default class API {
   static async genConfig(): Promise<FrontEndConfig> {
     const resp = await fetch(getConfigEndpoint());
     const respArrayBuffer = await resp.arrayBuffer();
-    return deserializeThrift(Buffer.from(respArrayBuffer), FrontEndConfig);
+    const res = deserializeThrift(Buffer.from(respArrayBuffer), FrontEndConfig);
+    serializeThrift(res);
+    return res;
   }
 
   static async genStocks(): Promise<Stocks> {
