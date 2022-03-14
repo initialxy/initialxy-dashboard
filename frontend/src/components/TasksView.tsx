@@ -1,6 +1,7 @@
 import "./TasksView.css";
 import { DateTime } from "luxon";
 import { defineComponent } from "vue";
+import { stx } from "../utils/Misc";
 import { Tasks } from "../jsgen/Tasks";
 import ListItem from "./ListItem";
 import Text from "./Text";
@@ -19,7 +20,14 @@ export default defineComponent({
     return () => (
       <div class="TasksView">
         {(props.tasksResp?.tasks || []).map(task => (
-          <ListItem key={task.id} style={`height: ${heightPct}%;`} autoMiddle>
+          <ListItem
+            key={task.id}
+            style={stx({
+              "height": (props.editable ? heightPct * 2 : heightPct) + "%",
+            })}
+            autoMiddle
+            editable={props.editable}
+          >
             <div class="row">
               <div class="desc">
                 <Text value={task.desc} editable={props.editable} />

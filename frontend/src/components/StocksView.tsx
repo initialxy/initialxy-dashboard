@@ -28,6 +28,7 @@ export default defineComponent({
           <ListItem
             key={stock.symbol}
             style={stx({ "height": heightPct + "%" })}
+            editable={props.editable}
           >
             <div class="row">
               <div class="summary">
