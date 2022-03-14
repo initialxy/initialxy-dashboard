@@ -22,7 +22,13 @@ html, body, #app {
   width: 100%;
 }
 
+.App .header {
+  position: relative;
+}
+
 .App .contents {
+  border: 0.15rem solid transparent;
+  box-sizing: border-box;
   flex: 1 1 0;
   position: relative;
 }
@@ -36,7 +42,7 @@ html, body, #app {
 }
 
 .App .edit_toggle {
-  margin: 1rem;
+  margin: 0.3rem;
   opacity: 1;
   position: absolute;
   right: 0;
@@ -46,6 +52,16 @@ html, body, #app {
 
 .App .edit_toggle.fade {
   opacity: 0;
+}
+
+.App .add {
+  margin: 0.3rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
 }
 
 @media (min-width: 800px) {

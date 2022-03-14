@@ -1,19 +1,51 @@
 .Button {
-  padding: 0.8rem;
-  border-radius: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
   border: none;
-  outline: none;
   color: white;
+  outline: none;
+  padding: 0.8rem;
 }
 
 .Button.add {
   background-color: #16b86f;
 }
 
+.Button.add:active {
+  background-color: #0f804d;
+}
+
 .Button.edit {
   background-color: #1647b8;
 }
 
+.Button.edit:active {
+  background-color: #0f3180;
+}
+
 .Button.delete {
   background-color: #b81616;
+}
+
+.Button.delete:active {
+  background-color: #800f0f;
+}
+
+.Button.standalone {
+  border-radius: 0.5rem;
+}
+
+.Button.top {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.Button.right {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.Button.bottom {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.Button.left {
+  border-radius: 0.5rem 0 0 0.5rem;
 }

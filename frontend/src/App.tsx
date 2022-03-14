@@ -44,21 +44,36 @@ export default defineComponent({
       store.dispatch("toggleEditable");
     }
 
+    const onAdd = () => {
+    }
+
     return () => store.state.config != null ? (
       <div class="App">
-        <Clock
-          timeFormat={store.state.config.timeFormat}
-          dateFormat={store.state.config.dateFormat}
-        />
-        <Button
-          class={clx({
-            "edit_toggle": true,
-            "fade": store.state.shouldFadeEditButton,
-          })}
-          label="Edit dashboard"
-          buttonType={ButtonType.Edit}
-          onClick={onToggleEdit}
-        />
+        <div class="header">
+          <Clock
+            timeFormat={store.state.config.timeFormat}
+            dateFormat={store.state.config.dateFormat}
+          />
+          <Button
+            class={clx({
+              "edit_toggle": true,
+              "fade": store.state.shouldFadeEditButton,
+            })}
+            label="Edit dashboard"
+            buttonType={ButtonType.Edit}
+            onClick={onToggleEdit}
+          />
+          {
+            store.state.isEditable ? (
+              <Button
+                class="add"
+                label="+"
+                buttonType={ButtonType.Add}
+                onClick={onAdd}
+              />
+            ) : null
+          }
+        </div>
         <div class="contents">
           <div class="stocks_container">
             <StocksView
