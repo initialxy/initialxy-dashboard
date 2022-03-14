@@ -19,7 +19,12 @@
 .ListItem .item_body {
   height: 100%;
   width: 100%;
-  flex: 1 0 0;
+  flex: 1 1 0;
+  overflow: hidden;
+}
+
+.ListItem.editable .item_body {
+  margin: 0 0.3rem 0 0.3rem;
 }
 
 .ListItem.auto_middle .item_body {
@@ -29,19 +34,13 @@
 
 .ListItem .move_position .move_up,
 .ListItem .move_position .move_down,
-.ListItem .delete_item {
+.ListItem .delete_container .delete_item {
   display: block;
-  margin: 0 0.3rem 0 0.3rem;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
 }
 
-.ListItem .delete_item {
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  font-size: 1.5em;
+.ListItem .move_position,
+.ListItem .delete_container {
+  margin: 0 0.3rem 0 0.3rem;
 }
 
 @media (min-width: 800px) {

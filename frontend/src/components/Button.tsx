@@ -1,5 +1,6 @@
 import "./Button.css";
 import { defineComponent, PropType } from "vue";
+import { clx } from "../utils/Misc";
 
 export enum ButtonType {
   Add = "add",
@@ -27,6 +28,7 @@ export default defineComponent({
       type: String as PropType<ButtonPosition>,
       default: ButtonPosition.Standalone,
     },
+    circular: { type: Boolean },
     onClick: { type: Function as PropType<() => void> },
   },
   setup(props) {
@@ -36,13 +38,18 @@ export default defineComponent({
       }
       props.onClick();
     };
-    return () => (
-      <button
-        class={`Button ${props.buttonType} ${props.buttonPosition}`}
-        onClick={onClick}
-      >
-        {props.label}
-      </button>
-    );
+    return () => {
+      const cls = `Button ${props.buttonType} ${props.buttonPosition} `;
+      return (
+        <button
+          class={cls + clx({
+            "circular": props.circular,
+          })}
+          onClick={onClick}
+        >
+          {props.label}
+        </button>
+      );
+    };
   }
 });

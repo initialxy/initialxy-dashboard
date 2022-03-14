@@ -1,12 +1,13 @@
 .Text.editable {
+  -webkit-user-modify:read-write;
+  border-bottom: 4px solid;
+  border-image-slice: 0 2 4 2;
+  border-image-source: url("/text_field_default.png");
+  border-left: 2px solid;
+  border-right: 2px solid;
   display: inline-block;
   min-width: 3em;
   outline: none;
-  border-left: 2px solid;
-  border-right: 2px solid;
-  border-bottom: 4px solid;
-  border-image-source: url("/text_field_default.png");
-  border-image-slice: 0 2 4 2;
 }
 
 .Text.editable:focus {

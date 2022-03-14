@@ -4,6 +4,14 @@
   color: white;
   outline: none;
   padding: 0.5rem;
+  margin: 0;
+  border-width: 0;
+}
+
+.Button.circular {
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0;
 }
 
 .Button.add {
@@ -48,4 +56,24 @@
 
 .Button.left {
   border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.Button.circular.standalone {
+  border-radius: 0.9rem;
+}
+
+.Button.circular.top {
+  border-radius: 0.9rem 0.9rem 0 0;
+}
+
+.Button.circular.right {
+  border-radius: 0 0.9rem 0.9rem 0;
+}
+
+.Button.circular.bottom {
+  border-radius: 0 0 0.9rem 0.9rem;
+}
+
+.Button.circular.left {
+  border-radius: 0.9rem 0 0 0.9rem;
 }

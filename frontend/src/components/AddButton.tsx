@@ -39,6 +39,7 @@ export default defineComponent({
           buttonType={ButtonType.Add}
           label="+"
           onClick={onClick}
+          circular
         />
         {shouldShowDropDown.value ? (
           <div class="drop_down">
@@ -46,14 +47,13 @@ export default defineComponent({
               class="add_stock"
               buttonType={ButtonType.Add}
               buttonPosition={ButtonPosition.Top}
-              label="Add Stock"
+              label="Stock"
               onClick={onAddStock}
-            />
-            <Button
+            /><Button
               class="add_task"
               buttonType={ButtonType.Add}
               buttonPosition={ButtonPosition.Bottom}
-              label="Add Task"
+              label="Task"
               onClick={onAddTask}
             />
           </div>

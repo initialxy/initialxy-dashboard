@@ -23,11 +23,13 @@ export default defineComponent({
               class="move_up"
               label="▲"
               buttonPosition={ButtonPosition.Top}
+              circular
             />
             <Button
               class="move_down"
               label="▼"
               buttonPosition={ButtonPosition.Bottom}
+              circular
             />
           </div>
         ) : null}
@@ -35,11 +37,14 @@ export default defineComponent({
           {(ctx.slots.default || emptyFunc)()}
         </div>
         {props.editable ? (
-          <Button
-            class="delete_item"
-            label="-"
-            buttonType={ButtonType.Delete}
-          />
+          <div class="delete_container">
+            <Button
+              class="delete_item"
+              label="-"
+              buttonType={ButtonType.Delete}
+              circular
+            />
+          </div>
         ) : null}
       </div>);
   }
