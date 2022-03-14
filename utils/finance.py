@@ -1,5 +1,6 @@
 from copy import copy
 from datetime import datetime
+from math import isnan
 from typing import Any, List, Optional, Tuple
 
 import pygen
@@ -45,6 +46,7 @@ class Finance:
         round(h.Close, 2),
       )
       for h in history.itertuples()
+      if not isnan(h.Open)
     ]
 
   @classmethod

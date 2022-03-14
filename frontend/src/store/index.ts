@@ -16,6 +16,7 @@ export default createStore({
       state.config = config;
     },
     setStocks(state, stocksResp: Stocks): void {
+      console.log(stocksResp);
       state.stocksResp = stocksResp;
     },
     setTasks(state, tasksResp: Tasks): void {
