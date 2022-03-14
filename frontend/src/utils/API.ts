@@ -3,9 +3,15 @@ import { FrontEndConfig } from "../jsgen/FrontEndConfig";
 import { getConfigEndpoint, getStocksEndpoint, getTasksEndpoint } from "./URL";
 import { nullthrows } from "./Misc";
 import { Stocks } from "../jsgen/Stocks";
+import { Task } from "../jsgen/Task";
 import { Tasks } from "../jsgen/Tasks";
 import { TFramedTransport, TBinaryProtocol, TProtocol } from "thrift";
 import Memoize from "./Memoize";
+
+const COMMON_WRITE_REQUEST_OPTIONS: RequestInit = {
+  mode: "cors",
+  headers: { "Content-Type": "application/octet-stream" },
+};
 
 function deserializeThrift<T>(
   data: Buffer,
@@ -52,5 +58,17 @@ export default class API {
     const resp = await fetch(getTasksEndpoint());
     const respArrayBuffer = await resp.arrayBuffer();
     return deserializeThrift(Buffer.from(respArrayBuffer), Tasks);
+  }
+
+  static async genAddTask(task: Task): Promise<void> {
+    const buffer = await genSerializeThrift(task);
+    await fetch(
+      getTasksEndpoint(),
+      {
+        method: "POST",
+        body: buffer,
+        ...COMMON_WRITE_REQUEST_OPTIONS,
+      },
+    );
   }
 }

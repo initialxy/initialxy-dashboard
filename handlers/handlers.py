@@ -3,7 +3,7 @@ import tornado.web
 from utils.config import get_config
 from utils.finance import CachedFinance
 from utils.storage import CachedStorage
-from utils.thrift import serialize_bin
+from utils.thrift import serialize_bin, deserialize_bin
 
 CONFIG = get_config()
 
@@ -14,8 +14,11 @@ class BaseEndpointHandler(tornado.web.RequestHandler):
     self.set_header("Content-Type", "application/octet-stream")
     if CONFIG.is_debug:
       self.set_header("Access-Control-Allow-Origin", "*")
-      self.set_header("Access-Control-Allow-Headers", "x-requested-with")
-      self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+      self.set_header(
+        "Access-Control-Allow-Headers",
+        "x-requested-with, Content-Type",
+      )
+      self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 
 
 class ConfigHandler(BaseEndpointHandler):
@@ -55,3 +58,9 @@ class TasksHandler(BaseEndpointHandler):
     tasks_resp = pygen.types.Tasks(CachedStorage.get_tasks())
     self.write(serialize_bin(tasks_resp))
     self.finish()
+
+  async def post(self) -> None:
+    _ = deserialize_bin(self.request.body, pygen.types.Tasks())
+
+  def options(self):
+    pass

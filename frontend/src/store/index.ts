@@ -1,6 +1,7 @@
 import { createStore } from "vuex"
 import { FrontEndConfig } from "../jsgen/FrontEndConfig";
 import { Stocks } from "../jsgen/Stocks";
+import { Task } from "../jsgen/Task";
 import { Tasks } from "../jsgen/Tasks";
 import API from "../utils/API"
 
@@ -40,6 +41,9 @@ export default createStore({
     async fetchTasks(context): Promise<void> {
       const tasksResp = await API.genTasks();
       context.commit("setTasks", tasksResp);
+    },
+    async addTask(context, task: Task): Promise<void> {
+      await API.genAddTask(task);
     },
   },
   modules: {

@@ -29,8 +29,8 @@ export function stx(styleDef: { [nane: string]: string }): string {
   return styles.join(" ");
 }
 
-export function debounceBatch<T>(
-  fn: (vs: Array<T>) => void,
+export function debounceBatch<T, U>(
+  fn: (vs: Array<T>) => U,
   ms: number,
 ): (v: T) => void {
   let scheduleID = 0;
