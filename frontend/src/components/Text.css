@@ -1,1 +1,10 @@
-.Text {}
+.Text.editable {
+  border: 2px solid #969696;
+  display: inline-block;
+  min-width: 3em;
+  outline: none;
+}
+
+.Text.editable:focus {
+  border: 2px solid black;
+}

@@ -42,9 +42,9 @@ export function debounceBatch<T, U>(
     batch.push(props);
     scheduleID = window.setTimeout(() => {
       scheduleID = 0;
-      const batch_cp = batch;
+      const batchCp = batch;
       batch = [];
-      fn(batch_cp);
+      fn(batchCp);
     }, ms);
   };
 }

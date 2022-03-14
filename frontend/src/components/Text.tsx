@@ -6,12 +6,28 @@ export default defineComponent({
   props: {
     value: { type: String },
     editable: { type: Boolean },
-    onUpdate: { type: Function as PropType<(v: string) => void> }
+    onInput: { type: Function as PropType<(v: string) => void> }
   },
   setup(props) {
-    return () => (
+    const onInput = (e: Event) => {
+      if (e.target == null || props.onInput == null) {
+        return;
+      }
+      props.onInput((e.target as HTMLSpanElement).textContent || "");
+    };
+    return () => props.editable ? (
+      <span
+        class="Text editable"
+        role="textbox"
+        contenteditable
+        onInput={onInput}
+      >
+        {props.value}
+      </span>
+    ) : (
       <span class="Text">
         {props.value}
-      </span>);
+      </span>
+    );
   }
 });

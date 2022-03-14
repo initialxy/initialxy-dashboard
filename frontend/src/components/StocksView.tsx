@@ -4,6 +4,7 @@ import { Stocks } from "../jsgen/Stocks";
 import { stx } from "../utils/Misc";
 import ListItem from "./ListItem";
 import StockChart from "./StockChart";
+import Text from "./Text";
 
 const NUM_ITEMS_IN_VIEW = 4;
 
@@ -17,6 +18,7 @@ export default defineComponent({
   props: {
     stocksResp: { type: Object as PropType<Stocks | null> },
     numPoints: { type: Number, required: true },
+    editable: { type: Boolean },
   },
   setup(props) {
     const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100;
@@ -29,7 +31,9 @@ export default defineComponent({
           >
             <div class="row">
               <div class="summary">
-                <div class="symbol">{stock.symbol}</div>
+                <div class="symbol">
+                  <Text value={stock.symbol} editable={props.editable} />
+                </div>
                 <div class="price">
                   {stock.curMarketPrice != null ? stock.curMarketPrice : "--"}
                 </div>

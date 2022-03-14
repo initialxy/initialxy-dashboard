@@ -2,6 +2,7 @@ import "./App.css";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
 import { DateTime } from "luxon";
 import { defineComponent, onMounted } from "vue";
+import { isEditPath } from "./utils/URL";
 import { sleep } from "./utils/Misc";
 import Clock from "./components/Clock";
 import StocksView from "./components/StocksView";
@@ -30,6 +31,8 @@ export default defineComponent({
       genUpdateLoop();
     });
 
+    const isEditable = isEditPath();
+
     return () => store.state.config != null ? (
       <div class="App">
         <Clock
@@ -41,12 +44,14 @@ export default defineComponent({
             <StocksView
               stocksResp={store.state.stocksResp}
               numPoints={store.state.config.numDataPointsInDay}
+              editable={isEditable}
             />
           </div>
           <div class="tasks_container">
             <TasksView
               tasksResp={store.state.tasksResp}
               dateFormat={store.state.config.dateShortFormat}
+              editable={isEditable}
             />
           </div>
         </div>
