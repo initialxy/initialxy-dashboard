@@ -1,0 +1,22 @@
+.AddButton > .add_button {
+  font-size: 1.5em;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  width: 2rem;
+}
+
+.AddButton > .drop_down {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 2.3rem;
+  z-index: 99;
+  overflow: hidden;
+  clear: both;
+}
+
+.AddButton .drop_down .add_stock,
+.AddButton .drop_down .add_task {
+  width: 6rem;
+}

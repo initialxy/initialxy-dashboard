@@ -5,6 +5,7 @@ import { clx } from "./utils/Misc";
 import { DateTime } from "luxon";
 import { defineComponent, onMounted } from "vue";
 import { sleep } from "./utils/Misc";
+import AddButton from "./components/AddButton";
 import Button from "./components/Button";
 import Clock from "./components/Clock";
 import StocksView from "./components/StocksView";
@@ -44,7 +45,10 @@ export default defineComponent({
       store.dispatch("toggleEditable");
     }
 
-    const onAdd = () => {
+    const onAddStock = () => {
+    }
+
+    const onAddTask = () => {
     }
 
     return () => store.state.config != null ? (
@@ -65,11 +69,10 @@ export default defineComponent({
           />
           {
             store.state.isEditable ? (
-              <Button
-                class="add"
-                label="+"
-                buttonType={ButtonType.Add}
-                onClick={onAdd}
+              <AddButton
+                class="add_items_button"
+                onAddStock={onAddStock}
+                onAddTask={onAddTask}
               />
             ) : null
           }
