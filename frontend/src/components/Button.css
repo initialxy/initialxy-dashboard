@@ -1,0 +1,19 @@
+.Button {
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.Button.add {
+  background-color: #16b86f;
+}
+
+.Button.edit {
+  background-color: #1647b8;
+}
+
+.Button.delete {
+  background-color: #b81616;
+}

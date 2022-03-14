@@ -6,7 +6,7 @@ export default defineComponent({
   props: {
     value: { type: String },
     editable: { type: Boolean },
-    onInput: { type: Function as PropType<(v: string) => void> }
+    onInput: { type: Function as PropType<(v: string) => void> },
   },
   setup(props) {
     const onInput = (e: Event) => {

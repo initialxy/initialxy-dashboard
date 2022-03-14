@@ -14,6 +14,6 @@ export function getTasksEndpoint(): string {
   return ROOT + "t";
 }
 
-export function isEditPath(): boolean {
-  return window.location.pathname.match(/\/e($|[/?#].*)/) != null;
+export function isEditableHash(): boolean {
+  return window.location.hash === "#e";
 }
