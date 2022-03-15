@@ -25,11 +25,12 @@ struct StockDataPoint {
 }
 
 struct Stock {
-  1: required double ord, // order of stocks in desc
-  2: required string symbol,
-  3: optional double curMarketPrice,
-  4: optional double preDayClose, // closing price from previous trading day
-  5: optional list<StockDataPoint> dataPoints,
+  1: required double id,
+  2: required double ord, // order of stocks in desc
+  3: required string symbol,
+  4: optional double curMarketPrice,
+  5: optional double preDayClose, // closing price from previous trading day
+  6: optional list<StockDataPoint> dataPoints,
 }
 
 struct Stocks {

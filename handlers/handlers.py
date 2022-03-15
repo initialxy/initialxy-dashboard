@@ -60,7 +60,7 @@ class TasksHandler(BaseEndpointHandler):
     self.finish()
 
   async def post(self) -> None:
-    _ = deserialize_bin(self.request.body, pygen.types.Tasks())
+    _ = deserialize_bin(self.request.body, pygen.types.Tasks([]))
 
   def options(self):
     pass

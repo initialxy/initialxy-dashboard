@@ -75,6 +75,7 @@ class Finance:
 
     extracted_stocks = [
       pygen.types.Stock(
+        s.id,
         s.ord,
         s.symbol,
         cls.__get_market_price(symbol_to_price.get(s.symbol)),
@@ -136,6 +137,7 @@ class CachedFinance:
     lookup = {s.symbol: s for s in cls.__stocks.stocks}
     return pygen.types.Stocks([
       pygen.types.Stock(
+        s.id,
         s.ord,
         s.symbol,
         lookup[s.symbol].curMarketPrice if s.symbol in lookup else None,
