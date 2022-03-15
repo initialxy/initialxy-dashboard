@@ -1,10 +1,10 @@
 import "./TasksView.css";
-import { DateTime } from "luxon";
 import { defineComponent } from "vue";
 import { stx } from "../utils/Misc";
 import { Tasks } from "../jsgen/Tasks";
 import ListItem from "./ListItem";
 import TextField from "./TextField";
+import DateField from "./DateField";
 
 const NUM_ITEMS_IN_VIEW = 8;
 
@@ -32,14 +32,14 @@ export default defineComponent({
               <div class="desc">
                 <TextField value={task.desc} editable={props.editable} />
               </div>
-              {task.timestamp != null ?
-                <div class="time">
-                  {DateTime
-                    .fromSeconds(task.timestamp)
-                    .toFormat(props.dateFormat)}
-                </div> :
-                null
-              }
+              <div class="date">
+                <DateField
+                  class="date_field"
+                  value={task.timestamp}
+                  dateFormat={props.dateFormat}
+                  editable={props.editable}
+                />
+              </div>
             </div>
           </ListItem>
         ))}

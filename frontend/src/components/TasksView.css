@@ -7,6 +7,7 @@
 .TasksView .row {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .TasksView .row .desc,
@@ -17,12 +18,14 @@
 
 .TasksView .row .desc {
   flex: 1 1 0;
-  text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.TasksView .row .time {
+.TasksView .row .date {
   color: #646464;
   flex: 0 0 1;
-  padding-left: 1em;
+}
+
+.TasksView .row .date > .date_field {
+  margin-left: 1em;
 }

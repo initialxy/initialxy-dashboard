@@ -1,0 +1,8 @@
+input.DateField {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  width: 8rem;
+}
+
+.DateField.hidden {
+  display: none;
+}

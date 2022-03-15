@@ -1,3 +1,8 @@
+.TextField {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .TextField.editable {
   -webkit-user-modify:read-write;
   border-bottom: 4px solid;
