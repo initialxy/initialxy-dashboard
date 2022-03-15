@@ -59,7 +59,7 @@ class Storage:
     )
     return [pygen.types.Stock(rowid, ord, symbol) for rowid, ord, symbol in res]
 
-  def insert_stocks(
+  def add_stocks(
     self,
     stocks: List[pygen.types.Stock],
   ) -> List[pygen.types.Stock]:
@@ -104,7 +104,7 @@ class Storage:
       for rowid, ord, desc, ts in res
     ]
 
-  def insert_tasks(
+  def add_tasks(
     self,
     tasks: List[pygen.types.Task],
   ) -> List[pygen.types.Task]:
@@ -124,7 +124,7 @@ class Storage:
         SELECT
           rowid,
           ord,
-          dsec,
+          desc,
           ts
         FROM tasks
         WHERE rowid > ?
@@ -175,12 +175,12 @@ class CachedStorage:
       return cls.__stocks
 
   @classmethod
-  def insert_stocks(
+  def add_stocks(
     cls,
     stocks: List[pygen.types.Stock],
   ) -> List[pygen.types.Stock]:
     with Storage() as s:
-      stocks = s.insert_stocks(stocks)
+      stocks = s.add_stocks(stocks)
 
     cls.__stocks = None
     return stocks
@@ -209,12 +209,12 @@ class CachedStorage:
       return cls.__tasks
 
   @classmethod
-  def insert_tasks(
+  def add_tasks(
     cls,
     tasks: List[pygen.types.Task],
   ) -> List[pygen.types.Task]:
     with Storage() as s:
-      tasks = s.insert_tasks(tasks)
+      tasks = s.add_tasks(tasks)
 
     cls.__tasks = None
     return tasks

@@ -18,7 +18,10 @@ class BaseEndpointHandler(tornado.web.RequestHandler):
         "Access-Control-Allow-Headers",
         "x-requested-with, Content-Type",
       )
-      self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+      self.set_header(
+        "Access-Control-Allow-Methods",
+        "POST, GET, DELETE, UPDATE, OPTIONS",
+      )
 
 
 class ConfigHandler(BaseEndpointHandler):
@@ -48,6 +51,26 @@ class StocksHandler(BaseEndpointHandler):
     self.write(serialize_bin(stocks_resp))
     self.finish()
 
+  async def post(self) -> None:
+    stocks_resp = deserialize_bin(self.request.body, pygen.types.Stocks([]))
+    stocks = CachedStorage.add_stocks(stocks_resp.stocks)
+    stocks_resp = pygen.types.Stocks(stocks)
+    self.write(serialize_bin(stocks_resp))
+    self.finish()
+
+  async def update(self) -> None:
+    stocks_resp = deserialize_bin(self.request.body, pygen.types.Stocks([]))
+    CachedStorage.update_stocks(stocks_resp.stocks)
+    self.finish()
+
+  async def delete(self) -> None:
+    stocks_resp = deserialize_bin(self.request.body, pygen.types.Stocks([]))
+    CachedStorage.delete_stocks(stocks_resp.stocks)
+    self.finish()
+
+  def options(self):
+    pass
+
 
 class TasksHandler(BaseEndpointHandler):
   """
@@ -60,7 +83,21 @@ class TasksHandler(BaseEndpointHandler):
     self.finish()
 
   async def post(self) -> None:
-    _ = deserialize_bin(self.request.body, pygen.types.Tasks([]))
+    tasks_resp = deserialize_bin(self.request.body, pygen.types.Tasks([]))
+    tasks = CachedStorage.add_tasks(tasks_resp.tasks)
+    tasks_resp = pygen.types.Tasks(tasks)
+    self.write(serialize_bin(tasks_resp))
+    self.finish()
+
+  async def update(self) -> None:
+    tasks_resp = deserialize_bin(self.request.body, pygen.types.Tasks([]))
+    CachedStorage.update_tasks(tasks_resp.tasks)
+    self.finish()
+
+  async def delete(self) -> None:
+    tasks_resp = deserialize_bin(self.request.body, pygen.types.Tasks([]))
+    CachedStorage.delete_tasks(tasks_resp.tasks)
+    self.finish()
 
   def options(self):
     pass
