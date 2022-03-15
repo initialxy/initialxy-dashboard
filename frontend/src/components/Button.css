@@ -15,6 +15,10 @@
   padding: 0;
 }
 
+.Button:disabled {
+  opacity: 0.75;
+}
+
 .Button.add {
   background-color: #16b86f;
 }

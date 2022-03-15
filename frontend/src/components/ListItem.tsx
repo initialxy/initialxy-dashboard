@@ -9,6 +9,8 @@ export default defineComponent({
   props: {
     autoMiddle: { type: Boolean },
     editable: { type: Boolean },
+    disableMoveUp: { type: Boolean },
+    disableMoveDown: { type: Boolean },
   },
   setup(props, ctx) {
     return () => (
@@ -24,12 +26,14 @@ export default defineComponent({
               label="▲"
               buttonPosition={ButtonPosition.Top}
               circular
+              disabled={props.disableMoveUp}
             />
             <Button
               class="move_down"
               label="▼"
               buttonPosition={ButtonPosition.Bottom}
               circular
+              disabled={props.disableMoveDown}
             />
           </div>
         ) : null}

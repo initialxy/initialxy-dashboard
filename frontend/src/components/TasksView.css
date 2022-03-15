@@ -10,15 +10,11 @@
   align-items: center;
 }
 
-.TasksView .row .desc,
-.TasksView .row .time {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .TasksView .row .desc {
   flex: 1 1 0;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .TasksView .row .date {

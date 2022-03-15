@@ -29,6 +29,7 @@ export default defineComponent({
       default: ButtonPosition.Standalone,
     },
     circular: { type: Boolean },
+    disabled: { type: Boolean },
     onClick: { type: Function as PropType<() => void> },
   },
   setup(props) {
@@ -46,6 +47,7 @@ export default defineComponent({
             "circular": props.circular,
           })}
           onClick={onClick}
+          disabled={props.disabled}
         >
           {props.label}
         </button>

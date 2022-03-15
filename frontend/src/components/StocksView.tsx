@@ -24,11 +24,13 @@ export default defineComponent({
     const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100;
     return () => (
       <div class="StocksView">
-        {(props.stocksResp?.stocks || []).map(stock => (
+        {(props.stocksResp?.stocks || []).map((stock, i) => (
           <ListItem
             key={stock.symbol}
             style={stx({ "height": heightPct + "%" })}
             editable={props.editable}
+            disableMoveUp={i === 0}
+            disableMoveDown={i + 1 === props.stocksResp?.stocks?.length}
           >
             <div class="row">
               <div class="summary">

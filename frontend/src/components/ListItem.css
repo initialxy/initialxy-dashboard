@@ -17,14 +17,14 @@
 }
 
 .ListItem .item_body {
-  height: 100%;
-  width: 100%;
   flex: 1 1 0;
+  height: 100%;
   overflow: hidden;
+  width: 100%;
 }
 
 .ListItem.editable .item_body {
-  margin: 0 0.3rem 0 0.3rem;
+  padding: 0.3rem;
 }
 
 .ListItem.auto_middle .item_body {

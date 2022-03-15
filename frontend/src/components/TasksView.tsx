@@ -19,7 +19,7 @@ export default defineComponent({
     const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100;
     return () => (
       <div class="TasksView">
-        {(props.tasksResp?.tasks || []).map(task => (
+        {(props.tasksResp?.tasks || []).map((task, i) => (
           <ListItem
             key={task.id}
             style={stx({
@@ -27,6 +27,8 @@ export default defineComponent({
             })}
             autoMiddle
             editable={props.editable}
+            disableMoveUp={i === 0}
+            disableMoveDown={i + 1 === props.tasksResp?.tasks?.length}
           >
             <div class="row">
               <div class="desc">

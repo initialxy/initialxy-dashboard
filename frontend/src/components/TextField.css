@@ -1,6 +1,5 @@
 .TextField {
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .TextField.editable {
