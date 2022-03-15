@@ -1,5 +1,5 @@
 from copy import copy
-from datetime import datetime
+from datetime import (datetime, time)
 from math import isnan
 from typing import Any, List, Optional, Tuple
 
@@ -99,16 +99,13 @@ class CachedFinance:
   def get_market_today_open_close_ts(cls) -> Tuple[int, int]:
     tz = timezone(CONFIG.market_time_zone)
     now = datetime.now(tz)
-    offset = now.strftime("%z")
-    date_str = now.strftime("%Y-%d-%m")
-    format = "%Y-%d-%m %H:%M %z"
-    open_dt = datetime.strptime(
-      "%s %s %s" % (date_str, CONFIG.market_open_time, offset),
-      format,
+    open_dt = datetime.combine(
+      now.date(),
+      time.fromisoformat(CONFIG.market_open_time),
     ).astimezone(tz)
-    close_dt = datetime.strptime(
-      "%s %s %s" % (date_str, CONFIG.market_close_time, offset),
-      format,
+    close_dt = datetime.combine(
+      now.date(),
+      time.fromisoformat(CONFIG.market_close_time),
     ).astimezone(tz)
     return int(open_dt.timestamp()), int(close_dt.timestamp())
 
