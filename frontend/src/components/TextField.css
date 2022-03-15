@@ -1,4 +1,4 @@
-.Text.editable {
+.TextField.editable {
   -webkit-user-modify:read-write;
   border-bottom: 4px solid;
   border-image-slice: 0 2 4 2;
@@ -10,6 +10,6 @@
   outline: none;
 }
 
-.Text.editable:focus {
+.TextField.editable:focus {
   border-image-source: url("/text_field_selected.png");
 }

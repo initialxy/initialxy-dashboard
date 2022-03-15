@@ -1,8 +1,8 @@
-import "./Text.css";
+import "./TextField.css";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-  name: "Text",
+  name: "TextField",
   props: {
     value: { type: String },
     editable: { type: Boolean },
@@ -17,7 +17,7 @@ export default defineComponent({
     };
     return () => props.editable ? (
       <span
-        class="Text editable"
+        class="TextField editable"
         role="textbox"
         contenteditable
         onInput={onInput}

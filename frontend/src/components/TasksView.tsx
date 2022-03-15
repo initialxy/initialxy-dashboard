@@ -4,7 +4,7 @@ import { defineComponent } from "vue";
 import { stx } from "../utils/Misc";
 import { Tasks } from "../jsgen/Tasks";
 import ListItem from "./ListItem";
-import Text from "./Text";
+import TextField from "./TextField";
 
 const NUM_ITEMS_IN_VIEW = 8;
 
@@ -30,7 +30,7 @@ export default defineComponent({
           >
             <div class="row">
               <div class="desc">
-                <Text value={task.desc} editable={props.editable} />
+                <TextField value={task.desc} editable={props.editable} />
               </div>
               {task.timestamp != null ?
                 <div class="time">

@@ -4,7 +4,7 @@ import { Stocks } from "../jsgen/Stocks";
 import { stx } from "../utils/Misc";
 import ListItem from "./ListItem";
 import StockChart from "./StockChart";
-import Text from "./Text";
+import TextField from "./TextField";
 
 const NUM_ITEMS_IN_VIEW = 4;
 
@@ -33,7 +33,7 @@ export default defineComponent({
             <div class="row">
               <div class="summary">
                 <div class="symbol">
-                  <Text value={stock.symbol} editable={props.editable} />
+                  <TextField value={stock.symbol} editable={props.editable} />
                 </div>
                 <div class="price">
                   {stock.curMarketPrice != null ? stock.curMarketPrice : "--"}
