@@ -4,7 +4,7 @@ export async function sleep(ms: number): Promise<void> {
   return new Promise((resolve, _) => window.setTimeout(resolve, ms));
 }
 
-export function nullthrows<T>(v?: T): T {
+export function nullthrows<T>(v?: T | null): T {
   if (v == null) {
     throw new TypeError("Value cannot be null");
   }
@@ -59,4 +59,16 @@ export function debounceBatch<T, U>(
 export function debounce(fn: () => void, ms: number): () => void {
   const dfn = debounceBatch((_v) => fn(), ms);
   return () => dfn(null);
+}
+
+export function wrapCallback<T>(
+  fn: ((v: T) => void) | undefined,
+  v: T,
+): (() => void) | undefined {
+  if (fn == undefined) {
+    return undefined;
+  }
+  return () => {
+    fn && fn(v);
+  };
 }

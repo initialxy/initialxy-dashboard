@@ -1,6 +1,6 @@
 import "./ListItem.css";
 import { ButtonType, ButtonPosition } from "../components/Button";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { emptyFunc, clx } from "../utils/Misc";
 import Button from "../components/Button";
 
@@ -11,6 +11,9 @@ export default defineComponent({
     editable: { type: Boolean },
     disableMoveUp: { type: Boolean },
     disableMoveDown: { type: Boolean },
+    onMoveUp: { type: Function as PropType<() => void> },
+    onMoveDown: { type: Function as PropType<() => void> },
+    onDelete: { type: Function as PropType<() => void> },
   },
   setup(props, ctx) {
     return () => (
@@ -27,6 +30,7 @@ export default defineComponent({
               buttonPosition={ButtonPosition.Top}
               circular
               disabled={props.disableMoveUp}
+              onClick={props.onMoveUp}
             />
             <Button
               class="move_down"
@@ -34,6 +38,7 @@ export default defineComponent({
               buttonPosition={ButtonPosition.Bottom}
               circular
               disabled={props.disableMoveDown}
+              onClick={props.onMoveDown}
             />
           </div>
         ) : null}
@@ -47,6 +52,7 @@ export default defineComponent({
               label="-"
               buttonType={ButtonType.Delete}
               circular
+              onClick={props.onDelete}
             />
           </div>
         ) : null}

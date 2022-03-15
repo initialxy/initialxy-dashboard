@@ -19,10 +19,14 @@ async function genUpdateLoop(): Promise<void> {
     await sleep(
       UPDATE_EVERY_MS - (DateTime.now().toMillis() % UPDATE_EVERY_MS),
     );
-    await Promise.all([
-      store.dispatch("fetchStocks"),
-      store.dispatch("fetchTasks"),
-    ]);
+    // Don't auto refresh when we are in edit mode to avoid overriding user
+    // inputs and reduce thrash.
+    if (!store.state.isEditable) {
+      await Promise.all([
+        store.dispatch("fetchStocks"),
+        store.dispatch("fetchTasks"),
+      ]);
+    }
   }
 }
 
@@ -46,9 +50,23 @@ export default defineComponent({
     }
 
     const onAddStock = () => {
+      store.dispatch("addStock");
+    }
+
+    const onMoveUpStock = (id: number) => {
+      store.dispatch("moveUpStock", id);
+    }
+
+    const onMoveDownStock = (id: number) => {
+      store.dispatch("moveDownStock", id);
+    }
+
+    const onDeleteStock = (id: number) => {
+      store.dispatch("deleteStock", id);
     }
 
     const onAddTask = () => {
+      store.dispatch("addTask");
     }
 
     return () => store.state.config != null ? (
@@ -83,6 +101,9 @@ export default defineComponent({
               stocksResp={store.state.stocksResp}
               numPoints={store.state.config.numDataPointsInDay}
               editable={store.state.isEditable}
+              onMoveUp={onMoveUpStock}
+              onMoveDown={onMoveDownStock}
+              onDelete={onDeleteStock}
             />
           </div>
           <div class="tasks_container">
