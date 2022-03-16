@@ -103,11 +103,13 @@ class CachedFinance:
     open_dt = datetime.combine(
       now.date(),
       time.fromisoformat(CONFIG.market_open_time),
-    ).astimezone(tz)
+      tzinfo=now.tzinfo,
+    )
     close_dt = datetime.combine(
       now.date(),
       time.fromisoformat(CONFIG.market_close_time),
-    ).astimezone(tz)
+      tzinfo=now.tzinfo,
+    )
     return int(open_dt.timestamp()), int(close_dt.timestamp())
 
   @classmethod
