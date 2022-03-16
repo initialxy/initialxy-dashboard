@@ -22,7 +22,7 @@ class Display:
     if not cls.__driver:
       chrome_options = Options()
       chrome_options.add_argument("headless")
-      chrome_options.add_argument("window-size=800x480")
+      chrome_options.add_argument("window-size=" + CONFIG.resolution)
       chrome_options.add_argument("hide-scrollbars")
 
       caps = DesiredCapabilities().CHROME
