@@ -1,5 +1,7 @@
 # initialxy-dashboard
-![Dashboard](dashboard_pic.jpg)
+![Dashboard Front](dashboard_images/dashboard_front.jpg)
+![Dashboard Back](dashboard_images/dashboard_back.jpg)
+![Dashboard App](dashboard_images/dashboard_app.png)
 
 This is my personal Raspberry Pi project, which uses an always-on e-ink screen as a dashboard. It shows three secions: date and time, stocks and tasks. It's optimized specifically for the Waveshare 7.5" monochrome 800x480px e-ink screen that I purchased. So it's probably not useful elsewhare.
 
@@ -39,7 +41,7 @@ Alternatively, if you opt not to use venv
 
     python3 api.py
 
-Note that you need to choose a port that does not require `sudo` (> 1024), because selenium does not work under root.
+Note that you need to choose a port that does not require `sudo` (> 1024), because selenium does not work under root. You can load the dashboard app on a web browser of our choice. Tap its right top corner to toggle edit mode. You can alternatively save it as a [PWA app](https://web.dev/progressive-web-apps/) on your home screen.
 
 # Configure
 Open `appconfig.json` and you can set a number of configurations. Hopefully it is self-explanatory.

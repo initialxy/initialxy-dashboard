@@ -44,7 +44,7 @@ def get_config() -> Config:
     args.debug,
     args.no_display,
     args.save_img,
-    config_dict.get("port", 80)
+    config_dict.get("port", 8010)
       if not args.debug else config_dict.get("devPort", 8000),
     config_dict.get("timeFormat", "h:mm a"),
     config_dict.get("dateFormat", "yyyy-MM-dd"),
