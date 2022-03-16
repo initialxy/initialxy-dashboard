@@ -154,7 +154,7 @@ class CachedFinance:
   ) -> pygen.types.Stocks:
     symbols = [s.symbol for s in stocks.stocks]
     symbols_in_cache = (
-      [s.symbol for s in cls.__stocks.stocks if s.curMarketPrice is not None]
+      [s.symbol for s in cls.__stocks.stocks]
       if cls.__stocks else []
     )
     now_ts = datetime.now().timestamp()

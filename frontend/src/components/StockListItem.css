@@ -1,0 +1,28 @@
+.StockListItem .row {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.StockListItem .row .summary .symbol {
+  font-weight: 500;
+}
+
+.StockListItem .row .summary,
+.StockListItem .row .chart {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.StockListItem .row .summary {
+  flex: 0 0 1;
+}
+
+.StockListItem .row .chart {
+  flex: 1 1 0;
+  height: 100%;
+  padding: 1rem 0 1rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+}

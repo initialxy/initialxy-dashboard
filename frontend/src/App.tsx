@@ -69,6 +69,18 @@ export default defineComponent({
       store.dispatch("addTask");
     }
 
+    const onMoveUpTask = (id: number) => {
+      store.dispatch("moveUpTask", id);
+    }
+
+    const onMoveDownTask = (id: number) => {
+      store.dispatch("moveDownTask", id);
+    }
+
+    const onDeleteTask = (id: number) => {
+      store.dispatch("deleteTask", id);
+    }
+
     return () => store.state.config != null ? (
       <div class="App">
         <div class="header">
@@ -111,6 +123,9 @@ export default defineComponent({
               tasksResp={store.state.tasksResp}
               dateFormat={store.state.config.dateShortFormat}
               editable={store.state.isEditable}
+              onMoveUp={onMoveUpTask}
+              onMoveDown={onMoveDownTask}
+              onDelete={onDeleteTask}
             />
           </div>
         </div>

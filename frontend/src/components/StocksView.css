@@ -3,32 +3,3 @@
   overflow-x: hidden;
   height: 100%;
 }
-
-.StocksView .row {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-}
-
-.StocksView .row .summary .symbol {
-  font-weight: 500;
-}
-
-.StocksView .row .summary,
-.StocksView .row .chart {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.StocksView .row .summary {
-  flex: 0 0 1;
-}
-
-.StocksView .row .chart {
-  flex: 1 1 0;
-  height: 100%;
-  padding: 1rem 0 1rem 1rem;
-  box-sizing: border-box;
-  position: relative;
-}

@@ -60,15 +60,3 @@ export function debounce(fn: () => void, ms: number): () => void {
   const dfn = debounceBatch((_v) => fn(), ms);
   return () => dfn(null);
 }
-
-export function wrapCallback<T>(
-  fn: ((v: T) => void) | undefined,
-  v: T,
-): (() => void) | undefined {
-  if (fn == undefined) {
-    return undefined;
-  }
-  return () => {
-    fn && fn(v);
-  };
-}

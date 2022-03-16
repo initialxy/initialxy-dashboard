@@ -9,6 +9,7 @@ export default defineComponent({
   props: {
     autoMiddle: { type: Boolean },
     editable: { type: Boolean },
+    disabled: { type: Boolean },
     disableMoveUp: { type: Boolean },
     disableMoveDown: { type: Boolean },
     onMoveUp: { type: Function as PropType<() => void> },
@@ -29,7 +30,7 @@ export default defineComponent({
               label="▲"
               buttonPosition={ButtonPosition.Top}
               circular
-              disabled={props.disableMoveUp}
+              disabled={props.disableMoveUp || props.disabled}
               onClick={props.onMoveUp}
             />
             <Button
@@ -37,7 +38,7 @@ export default defineComponent({
               label="▼"
               buttonPosition={ButtonPosition.Bottom}
               circular
-              disabled={props.disableMoveDown}
+              disabled={props.disableMoveDown || props.disabled}
               onClick={props.onMoveDown}
             />
           </div>
@@ -53,6 +54,7 @@ export default defineComponent({
               buttonType={ButtonType.Delete}
               circular
               onClick={props.onDelete}
+              disabled={props.disabled}
             />
           </div>
         ) : null}
