@@ -5,6 +5,8 @@ import { clx } from "./utils/Misc";
 import { DateTime } from "luxon";
 import { defineComponent, onMounted } from "vue";
 import { sleep } from "./utils/Misc";
+import { Stock } from "./jsgen/Stock";
+import { Task } from "./jsgen/Task";
 import AddButton from "./components/AddButton";
 import Button from "./components/Button";
 import Clock from "./components/Clock";
@@ -65,6 +67,10 @@ export default defineComponent({
       store.dispatch("deleteStock", id);
     }
 
+    const onChangeStock = (stockCopy: Stock) => {
+      store.dispatch("changeStock", stockCopy);
+    }
+
     const onAddTask = () => {
       store.dispatch("addTask");
     }
@@ -79,6 +85,10 @@ export default defineComponent({
 
     const onDeleteTask = (id: number) => {
       store.dispatch("deleteTask", id);
+    }
+
+    const onChangeTask = (taskCopy: Task) => {
+      store.dispatch("changeTask", taskCopy);
     }
 
     return () => store.state.config != null ? (
@@ -116,6 +126,7 @@ export default defineComponent({
               onMoveUp={onMoveUpStock}
               onMoveDown={onMoveDownStock}
               onDelete={onDeleteStock}
+              onChange={onChangeStock}
             />
           </div>
           <div class="tasks_container">
@@ -126,6 +137,7 @@ export default defineComponent({
               onMoveUp={onMoveUpTask}
               onMoveDown={onMoveDownTask}
               onDelete={onDeleteTask}
+              onChange={onChangeTask}
             />
           </div>
         </div>

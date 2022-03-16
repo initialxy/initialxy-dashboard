@@ -1,6 +1,7 @@
 import "./TasksView.css";
 import { defineComponent, PropType } from "vue";
 import { stx } from "../utils/Misc";
+import { Task } from "../jsgen/Task";
 import { Tasks } from "../jsgen/Tasks";
 import TaskListItem from "./TaskListItem";
 
@@ -15,6 +16,7 @@ export default defineComponent({
     onMoveUp: { type: Function as PropType<(id: number) => void> },
     onMoveDown: { type: Function as PropType<(id: number) => void> },
     onDelete: { type: Function as PropType<(id: number) => void> },
+    onChange: { type: Function as PropType<(taskCopy: Task) => void> },
   },
   setup(props) {
     const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100;
@@ -34,6 +36,7 @@ export default defineComponent({
             onMoveUp={props.onMoveUp}
             onMoveDown={props.onMoveDown}
             onDelete={props.onDelete}
+            onChange={props.onChange}
             disabled={task.id === 0}
           />
         ))}

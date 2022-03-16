@@ -17,6 +17,7 @@ export default defineComponent({
     onMoveUp: { type: Function as PropType<(id: number) => void> },
     onMoveDown: { type: Function as PropType<(id: number) => void> },
     onDelete: { type: Function as PropType<(id: number) => void> },
+    onChange: { type: Function as PropType<(taskCopy: Task) => void> },
   },
   setup(props) {
     const onMoveUp = () => {
@@ -27,6 +28,25 @@ export default defineComponent({
     }
     const onDelete = () => {
       props.onDelete && props.onDelete(props.task.id);
+    }
+    const onDescInput = (desc: string) => {
+      if (props.onChange == null) {
+        return;
+      }
+
+      // Do not mutate data models directly, that's store's job.
+      const taskCopy = new Task(props.task);
+      taskCopy.desc = desc;
+      props.onChange(taskCopy);
+    }
+    const onDateInput = (timestamp: number | null) => {
+      if (props.onChange == null) {
+        return;
+      }
+
+      const taskCopy = new Task(props.task);
+      taskCopy.timestamp = timestamp != null ? timestamp : undefined;
+      props.onChange(taskCopy);
     }
 
     return () => (
@@ -46,6 +66,7 @@ export default defineComponent({
             <TextField
               value={props.task.desc}
               editable={props.editable && !props.disabled}
+              onInput={onDescInput}
             />
           </div>
           <div class="date">
@@ -54,6 +75,7 @@ export default defineComponent({
               value={props.task.timestamp}
               dateFormat={props.dateFormat}
               editable={props.editable && !props.disabled}
+              onInput={onDateInput}
             />
           </div>
         </div>

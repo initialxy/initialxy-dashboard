@@ -1,5 +1,6 @@
 import "./StocksView.css";
 import { defineComponent, PropType } from "vue";
+import { Stock } from "../jsgen/Stock";
 import { Stocks } from "../jsgen/Stocks";
 import { stx } from "../utils/Misc";
 import StockListItem from "./StockListItem";
@@ -15,6 +16,7 @@ export default defineComponent({
     onMoveUp: { type: Function as PropType<(id: number) => void> },
     onMoveDown: { type: Function as PropType<(id: number) => void> },
     onDelete: { type: Function as PropType<(id: number) => void> },
+    onChange: { type: Function as PropType<(stockCopy: Stock) => void> },
   },
   setup(props) {
     const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100;
@@ -32,6 +34,7 @@ export default defineComponent({
             onMoveUp={props.onMoveUp}
             onMoveDown={props.onMoveDown}
             onDelete={props.onDelete}
+            onChange={props.onChange}
             disabled={stock.id === 0}
           />
         ))}

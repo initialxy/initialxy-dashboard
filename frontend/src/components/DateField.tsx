@@ -21,7 +21,6 @@ export default defineComponent({
         return;
       }
       const value = (e.target as HTMLInputElement).value || "";
-      console.log(value);
       if (value === "") {
         shouldShowPicker.value = false;
       }

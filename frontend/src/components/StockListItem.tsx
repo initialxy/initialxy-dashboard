@@ -22,6 +22,7 @@ export default defineComponent({
     onMoveUp: { type: Function as PropType<(id: number) => void> },
     onMoveDown: { type: Function as PropType<(id: number) => void> },
     onDelete: { type: Function as PropType<(id: number) => void> },
+    onChange: { type: Function as PropType<(stockCopy: Stock) => void> },
   },
   setup(props) {
     const onMoveUp = () => {
@@ -32,6 +33,17 @@ export default defineComponent({
     }
     const onDelete = () => {
       props.onDelete && props.onDelete(props.stock.id);
+    }
+    const onInput = (symbol: string) => {
+      if (props.onChange == null) {
+        return;
+      }
+
+      // Do not mutate data models directly, that's store's job.
+      const stockCopy = new Stock(props.stock);
+      stockCopy.symbol = symbol;
+      stockCopy.dataPoints = [];
+      props.onChange(stockCopy);
     }
 
     return () => (
@@ -51,6 +63,7 @@ export default defineComponent({
               <TextField
                 value={props.stock.symbol}
                 editable={props.editable && !props.disabled}
+                onInput={onInput}
               />
             </div>
             <div class="price">

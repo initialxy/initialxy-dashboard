@@ -103,6 +103,15 @@ export default createStore({
         .stocks
         .filter(s => s.id !== id);
     },
+    changeStock(state, stockCopy: Stock): void {
+      if (state.stocksResp == null) {
+        return;
+      }
+      const stock = state.stocksResp.stocks.find(s => s.id === stockCopy.id);
+      if (stock != null) {
+        stock.symbol = stockCopy.symbol;
+      } 
+    },
     setTasks(state, tasksResp: Tasks): void {
       state.tasksResp = tasksResp;
     },
@@ -126,6 +135,16 @@ export default createStore({
         .tasksResp
         .tasks
         .filter(s => s.id !== id);
+    },
+    changeTask(state, taskCopy: Task): void {
+      if (state.tasksResp == null) {
+        return;
+      }
+      const task = state.tasksResp.tasks.find(s => s.id === taskCopy.id);
+      if (task != null) {
+        task.desc = taskCopy.desc;
+        task.timestamp = taskCopy.timestamp;
+      } 
     },
     setEditable(state, isEditable: boolean): void {
       window.location.hash = isEditable ? "#e" : "#";
@@ -196,6 +215,9 @@ export default createStore({
     async deleteStock(context, id: number): Promise<void> {
       context.commit("deleteStock", id);
     },
+    async changeStock(context, stockCopy: Stock): Promise<void> {
+      context.commit("changeStock", stockCopy);
+    },
     async fetchTasks(context): Promise<void> {
       const tasksResp = await API.genTasks();
       context.commit("setTasks", tasksResp);
@@ -233,6 +255,9 @@ export default createStore({
     },
     async deleteTask(context, id: number): Promise<void> {
       context.commit("deleteTask", id);
+    },
+    async changeTask(context, taskCopy: Task): Promise<void> {
+      context.commit("changeTask", taskCopy);
     },
   },
   modules: {
