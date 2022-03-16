@@ -49,7 +49,7 @@ class Storage:
       raise NameError("Invalid table %s" % table)
 
     res = self.__execute("SELECT MAX(rowid) AS max_rowid FROM %s" % table)
-    if not res:
+    if not res[0][0]:
       return -1
     return int(res[0][0])
 

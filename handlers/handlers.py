@@ -20,7 +20,7 @@ class BaseEndpointHandler(tornado.web.RequestHandler):
       )
       self.set_header(
         "Access-Control-Allow-Methods",
-        "POST, GET, DELETE, UPDATE, OPTIONS",
+        "POST, GET, DELETE, OPTIONS",
       )
 
 
@@ -53,14 +53,12 @@ class StocksHandler(BaseEndpointHandler):
 
   async def post(self) -> None:
     stocks_resp = deserialize_bin(self.request.body, pygen.types.Stocks([]))
-    stocks = CachedStorage.add_stocks(stocks_resp.stocks)
-    stocks_resp = pygen.types.Stocks(stocks)
+    to_add = [s for s in stocks_resp.stocks if s.id == 0]
+    to_update = [s for s in stocks_resp.stocks if s.id != 0]
+    stocks_added = CachedStorage.add_stocks(to_add)
+    CachedStorage.update_stocks(to_update)
+    stocks_resp = pygen.types.Stocks(stocks_added + to_update)
     self.write(serialize_bin(stocks_resp))
-    self.finish()
-
-  async def update(self) -> None:
-    stocks_resp = deserialize_bin(self.request.body, pygen.types.Stocks([]))
-    CachedStorage.update_stocks(stocks_resp.stocks)
     self.finish()
 
   async def delete(self) -> None:
@@ -84,14 +82,12 @@ class TasksHandler(BaseEndpointHandler):
 
   async def post(self) -> None:
     tasks_resp = deserialize_bin(self.request.body, pygen.types.Tasks([]))
-    tasks = CachedStorage.add_tasks(tasks_resp.tasks)
-    tasks_resp = pygen.types.Tasks(tasks)
+    to_add = [s for s in tasks_resp.tasks if s.id == 0]
+    to_update = [s for s in tasks_resp.tasks if s.id != 0]
+    tasks_added = CachedStorage.add_tasks(to_add)
+    CachedStorage.update_tasks(to_update)
+    tasks_resp = pygen.types.Tasks(tasks_added + to_update)
     self.write(serialize_bin(tasks_resp))
-    self.finish()
-
-  async def update(self) -> None:
-    tasks_resp = deserialize_bin(self.request.body, pygen.types.Tasks([]))
-    CachedStorage.update_tasks(tasks_resp.tasks)
     self.finish()
 
   async def delete(self) -> None:

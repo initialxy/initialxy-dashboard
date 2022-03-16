@@ -71,6 +71,10 @@ export default class API {
   // We only allow inserting one row at a time to avoid sync issues as much as
   // possible.
   static async genAddStock(stock: Stock): Promise<Stock> {
+    if (stock.id !== 0) {
+      throw new Error("When creating new, id needs to be set to 0");
+    }
+
     const resp = await sendThriftObjToAPI(
       new Stocks({ stocks: [stock] }),
       getStocksEndpoint(),
@@ -83,7 +87,7 @@ export default class API {
   }
 
   static async genUpdateStocks(stocks: Stocks): Promise<void> {
-    await sendThriftObjToAPI(stocks, getStocksEndpoint(), "UPDATE");
+    await sendThriftObjToAPI(stocks, getStocksEndpoint(), "POST");
   }
 
   static async genDeleteStocks(stocks: Stocks): Promise<void> {
@@ -97,6 +101,10 @@ export default class API {
   }
 
   static async genAddTask(task: Task): Promise<Task> {
+    if (task.id !== 0) {
+      throw new Error("When creating new, id needs to be set to 0");
+    }
+
     const resp = await sendThriftObjToAPI(
       new Tasks({ tasks: [task] }),
       getTasksEndpoint(),
@@ -106,11 +114,11 @@ export default class API {
     return onlyx(deserializeThrift(Buffer.from(respArrayBuffer), Tasks).tasks);
   }
 
-  static async genUpdateTasks(stocks: Tasks): Promise<void> {
-    await sendThriftObjToAPI(stocks, getTasksEndpoint(), "UPDATE");
+  static async genUpdateTasks(tasks: Tasks): Promise<void> {
+    await sendThriftObjToAPI(tasks, getTasksEndpoint(), "POST");
   }
 
-  static async genDeleteTasks(stocks: Tasks): Promise<void> {
-    await sendThriftObjToAPI(stocks, getTasksEndpoint(), "DELETE");
+  static async genDeleteTasks(tasks: Tasks): Promise<void> {
+    await sendThriftObjToAPI(tasks, getTasksEndpoint(), "DELETE");
   }
 }
