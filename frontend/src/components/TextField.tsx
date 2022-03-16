@@ -13,17 +13,15 @@ export default defineComponent({
       if (e.target == null || props.onInput == null) {
         return;
       }
-      props.onInput((e.target as HTMLSpanElement).textContent || "");
+      props.onInput((e.target as HTMLInputElement).value || "");
     };
     return () => props.editable ? (
-      <span
+      <input
         class="TextField editable"
-        role="textbox"
-        contenteditable
+        type="text"
         onInput={onInput}
-      >
-        {props.value}
-      </span>
+        value={props.value}
+      />
     ) : (
       <span class="Text">
         {props.value}

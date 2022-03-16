@@ -12,6 +12,8 @@
   display: inline-block;
   min-width: 3em;
   outline: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .TextField.editable:focus {

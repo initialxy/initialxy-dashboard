@@ -9,14 +9,14 @@
   font-weight: 500;
 }
 
+.StockListItem .row .summary .symbol > input {
+  max-width: 3rem;
+}
+
 .StockListItem .row .summary,
 .StockListItem .row .chart {
   overflow: hidden;
   white-space: nowrap;
-}
-
-.StockListItem .row .summary {
-  flex: 0 0 1;
 }
 
 .StockListItem .row .chart {
