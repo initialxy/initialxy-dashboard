@@ -2,20 +2,20 @@
   overflow: hidden;
 }
 
-.TextField.editable {
+input.TextField.editable {
   -webkit-user-modify:read-write;
-  border-bottom: 4px solid;
-  border-image-slice: 0 2 4 2;
-  border-image-source: url("/text_field_default.png");
-  border-left: 2px solid;
-  border-right: 2px solid;
+  border-bottom: 1px solid #969696;
+  border-radius: 0;
+  border-width: 0 0 1px 0;
+  box-sizing: border-box;
   display: inline-block;
+  font-size: 0.9em;
   min-width: 3em;
   outline: none;
   width: 100%;
-  box-sizing: border-box;
+  padding: 0;
 }
 
 .TextField.editable:focus {
-  border-image-source: url("/text_field_selected.png");
+  border-bottom: 1px solid #4d4d4d;
 }

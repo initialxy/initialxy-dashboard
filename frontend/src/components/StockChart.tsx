@@ -1,7 +1,7 @@
 import "./StockChart.css";
 import { defineComponent } from "vue";
 import { Stock } from "../jsgen/Stock";
-import { stx } from "../utils/Misc";
+import { stx, clx } from "../utils/Misc";
 
 function getRange(stock: Stock): Array<number | null> {
   if (stock.preDayClose == null || stock.dataPoints == null) {
@@ -32,17 +32,27 @@ export default defineComponent({
     stock: { type: Stock, required: true },
     numPoints: { type: Number, required: true },
     showFullCandle: { type: Boolean },
+    showColor: { type: Boolean },
   },
   setup(props) {
     return () => {
       const widthPct = Math.round(1 / props.numPoints * 10000) / 100;
       const stock = props.stock;
       const [chartMin, chartMax] = getRange(stock);
+      const isStockUp =
+        (props.stock.curMarketPrice || 0) >= (props.stock.preDayClose || 0);
       return stock.dataPoints != null &&
         stock.preDayClose != null &&
         chartMax != null &&
         chartMin != null ? (
-        <div class="StockChart">
+        <div
+          class={clx({
+            "StockChart": true,
+            "show_color": props.showColor,
+            "stock_up": isStockUp,
+            "stock_down": !isStockUp,
+          })}
+        >
           <div class="inner">
             <div
               class="line"

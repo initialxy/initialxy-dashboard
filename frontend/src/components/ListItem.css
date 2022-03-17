@@ -1,46 +1,53 @@
 .ListItem {
-  align-items: center;
-  background-color: white;
-  border-radius: 0.5rem;
-  border: 0.15rem solid black;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
   min-height: 3rem;
-  overflow: hidden;
-  padding: 0 1rem 0 1rem;
   position: relative;
+  padding: 0.15rem;
+  font-size: 0.9em;
 }
 
 .ListItem.editable {
   padding: 0;
+  border-bottom: 1px solid #b3b3b3;
 }
 
-.ListItem .item_body {
+.ListItem.editable > .item_container {
+  padding: 0;
+  border-radius: 0;
+}
+
+.ListItem > .item_container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 0 1rem 0 1rem;
+  background-color: white;
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.ListItem > .item_container > .item_body {
   flex: 1 1 0;
   height: 100%;
   overflow: hidden;
   width: 100%;
 }
 
-.ListItem.editable .item_body {
-  padding: 0.3rem;
-}
-
-.ListItem.auto_middle .item_body {
+.ListItem.auto_middle > .item_container >  .item_body {
   height: auto;
   width: auto;
 }
 
-.ListItem .move_position .move_up,
-.ListItem .move_position .move_down,
-.ListItem .delete_container .delete_item {
+.ListItem > .item_container > .move_position .move_up,
+.ListItem > .item_container > .move_position .move_down,
+.ListItem > .item_container > .delete_container .delete_item {
   display: block;
 }
 
-.ListItem .move_position,
-.ListItem .delete_container {
-  margin: 0 0.3rem 0 0.3rem;
+.ListItem > .item_container > .move_position,
+.ListItem > .item_container > .delete_container {
+  margin: 0 0.5rem 0 0.5rem;
 }
 
 @media (min-width: 800px) {

@@ -89,6 +89,7 @@ export default defineComponent({
           <StockChart
             class="chart" stock={props.stock}
             numPoints={props.numPoints}
+            showColor={props.editable}
           />
         </div>
       </ListItem>

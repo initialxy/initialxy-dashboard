@@ -6,14 +6,14 @@
   width: 10px;
 }
 
-.StockChart .inner {
+.StockChart > .inner {
   height: 100%;
   overflow: visible;
   position: relative;
   width: 100%;
 }
 
-.StockChart .inner .line {
+.StockChart > .inner .line {
   background-color: #646464;
   height: 1px;
   position: absolute;
@@ -21,7 +21,7 @@
 }
 
 /* Doesn't look like we have enough resolution to do a candle stick.*/
-.StockChart .inner .bar {
+.StockChart > .inner .bar {
   background-image: url("/bar.png");
   background-position: center;
   background-repeat: repeat-y;
@@ -30,7 +30,41 @@
   position: absolute;
 }
 
-.StockChart .inner .candle {
+.StockChart > .inner .candle {
+  background-color: black;
+  min-height: 3%;
+  position: absolute;
+}
+
+.StockChart.show_color.stock_up > .inner .line,
+.StockChart.show_color.stock_up > .inner .bar,
+.StockChart.show_color.stock_up > .inner .candle {
+  background-color: #37bf30;
+}
+
+.StockChart.show_color.stock_down > .inner .line,
+.StockChart.show_color.stock_down > .inner .bar,
+.StockChart.show_color.stock_down > .inner .candle {
+  background-color: #bf3030;
+}
+
+.StockChart.show_color > .inner .candle {
+  border: solid white;
+  border-width: 0 0 0 1px;
+  box-sizing: border-box;
+}
+
+/* Doesn't look like we have enough resolution to do a candle stick.*/
+.StockChart > .inner .bar {
+  background-image: url("/bar.png");
+  background-position: center;
+  background-repeat: repeat-y;
+  box-sizing: border-box;
+  min-height: 3%;
+  position: absolute;
+}
+
+.StockChart > .inner .candle {
   background-color: black;
   min-height: 3%;
   position: absolute;

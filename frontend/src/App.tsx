@@ -92,53 +92,55 @@ export default defineComponent({
     }
 
     return () => store.state.config != null ? (
-      <div class="App">
-        <div class="header">
-          <Clock
-            timeFormat={store.state.config.timeFormat}
-            dateFormat={store.state.config.dateFormat}
-          />
-          <Button
-            class={clx({
-              "edit_toggle": true,
-              "fade": store.state.shouldFadeEditButton,
-            })}
-            label="Edit dashboard"
-            buttonType={ButtonType.Edit}
-            onClick={onToggleEdit}
-          />
-          {
-            store.state.isEditable ? (
-              <AddButton
-                class="add_items_button"
-                onAddStock={onAddStock}
-                onAddTask={onAddTask}
-              />
-            ) : null
-          }
-        </div>
-        <div class="contents">
-          <div class="stocks_container">
-            <StocksView
-              stocksResp={store.state.stocksResp}
-              numPoints={store.state.config.numDataPointsInDay}
-              editable={store.state.isEditable}
-              onMoveUp={onMoveUpStock}
-              onMoveDown={onMoveDownStock}
-              onDelete={onDeleteStock}
-              onChange={onChangeStock}
+      <div class={clx({ "App": true, "show_color": store.state.isEditable })}>
+        <div class="app_body">
+          <div class="header">
+            <Clock
+              timeFormat={store.state.config.timeFormat}
+              dateFormat={store.state.config.dateFormat}
             />
+            <Button
+              class={clx({
+                "edit_toggle": true,
+                "fade": store.state.shouldFadeEditButton,
+              })}
+              label="Edit dashboard"
+              buttonType={ButtonType.Edit}
+              onClick={onToggleEdit}
+            />
+            {
+              store.state.isEditable ? (
+                <AddButton
+                  class="add_items_button"
+                  onAddStock={onAddStock}
+                  onAddTask={onAddTask}
+                />
+              ) : null
+            }
           </div>
-          <div class="tasks_container">
-            <TasksView
-              tasksResp={store.state.tasksResp}
-              dateFormat={store.state.config.dateShortFormat}
-              editable={store.state.isEditable}
-              onMoveUp={onMoveUpTask}
-              onMoveDown={onMoveDownTask}
-              onDelete={onDeleteTask}
-              onChange={onChangeTask}
-            />
+          <div class="contents">
+            <div class="stocks_container">
+              <StocksView
+                stocksResp={store.state.stocksResp}
+                numPoints={store.state.config.numDataPointsInDay}
+                editable={store.state.isEditable}
+                onMoveUp={onMoveUpStock}
+                onMoveDown={onMoveDownStock}
+                onDelete={onDeleteStock}
+                onChange={onChangeStock}
+              />
+            </div>
+            <div class="tasks_container">
+              <TasksView
+                tasksResp={store.state.tasksResp}
+                dateFormat={store.state.config.dateShortFormat}
+                editable={store.state.isEditable}
+                onMoveUp={onMoveUpTask}
+                onMoveDown={onMoveDownTask}
+                onDelete={onDeleteTask}
+                onChange={onChangeTask}
+              />
+            </div>
           </div>
         </div>
       </div>

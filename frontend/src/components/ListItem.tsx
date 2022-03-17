@@ -23,41 +23,43 @@ export default defineComponent({
         "auto_middle": props.autoMiddle,
         "editable": props.editable,
       })}>
-        {props.editable ? (
-          <div class="move_position">
-            <Button
-              class="move_up"
-              label="▲"
-              buttonPosition={ButtonPosition.Top}
-              circular
-              disabled={props.disableMoveUp || props.disabled}
-              onClick={props.onMoveUp}
-            />
-            <Button
-              class="move_down"
-              label="▼"
-              buttonPosition={ButtonPosition.Bottom}
-              circular
-              disabled={props.disableMoveDown || props.disabled}
-              onClick={props.onMoveDown}
-            />
+        <div class="item_container">
+          {props.editable ? (
+            <div class="move_position">
+              <Button
+                class="move_up"
+                label="↑"
+                buttonPosition={ButtonPosition.Top}
+                circular
+                disabled={props.disableMoveUp || props.disabled}
+                onClick={props.onMoveUp}
+              />
+              <Button
+                class="move_down"
+                label="↓"
+                buttonPosition={ButtonPosition.Bottom}
+                circular
+                disabled={props.disableMoveDown || props.disabled}
+                onClick={props.onMoveDown}
+              />
+            </div>
+          ) : null}
+          <div class="item_body">
+            {(ctx.slots.default || emptyFunc)()}
           </div>
-        ) : null}
-        <div class="item_body">
-          {(ctx.slots.default || emptyFunc)()}
+          {props.editable ? (
+            <div class="delete_container">
+              <Button
+                class="delete_item"
+                label="➖"
+                buttonType={ButtonType.Delete}
+                circular
+                onClick={props.onDelete}
+                disabled={props.disabled}
+              />
+            </div>
+          ) : null}
         </div>
-        {props.editable ? (
-          <div class="delete_container">
-            <Button
-              class="delete_item"
-              label="-"
-              buttonType={ButtonType.Delete}
-              circular
-              onClick={props.onDelete}
-              disabled={props.disabled}
-            />
-          </div>
-        ) : null}
       </div>);
   }
 });

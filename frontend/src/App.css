@@ -8,12 +8,7 @@ html, body, #app {
 
 .App {
   background-color: black;
-  background-image: url("/background.png");
-  background-position: 100% 100%;
-  background-repeat: no-repeat;
   color: black;
-  display: flex;
-  flex-direction: column;
   font-family: Roboto, Arial, Helvetica, sans-serif;
   font-weight: 400;
   height: 100%;
@@ -24,26 +19,51 @@ html, body, #app {
   width: 100%;
 }
 
-.App .header {
+.App > .app_body {
+  background-image: url("/background.png");
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.App.show_color {
+  background: linear-gradient(25deg, #19173c 0%, #1c1ca3 42%, #00a4c6 100%);
+  font-weight: 300;
+}
+
+.App > .app_body > .header {
   position: relative;
 }
 
-.App .contents {
-  border: 0.15rem solid transparent;
+.App > .app_body > .contents {
+  padding: 0.15rem;
   box-sizing: border-box;
   flex: 1 1 0;
   position: relative;
 }
 
-.App .contents .stocks_container,
-.App .contents .tasks_container {
+.App.show_color > .app_body > .contents {
+  padding: 0;
+}
+
+.App > .app_body > .contents .stocks_container,
+.App > .app_body > .contents .tasks_container {
   float: none;
   height: 50%;
   position: relative;
   width: 100%;
 }
 
-.App .edit_toggle {
+.App.show_color > .app_body > .contents .stocks_container,
+.App.show_color > .app_body > .contents .tasks_container {
+  box-sizing: border-box;
+  padding-bottom: 1rem;
+}
+
+.App > .app_body > .header > .edit_toggle {
   margin: 0.3rem;
   opacity: 1;
   position: absolute;
@@ -52,20 +72,20 @@ html, body, #app {
   transition: opacity 2s ease;
 }
 
-.App .edit_toggle.fade {
+.App > .app_body > .header > .edit_toggle.fade {
   opacity: 0;
 }
 
-.App > .header > .add_items_button {
-  margin: 0 0.6rem 0.3rem 0;
+.App > .app_body > .header > .add_items_button {
+  margin: 0 0.5rem 0.5rem 0;
   position: absolute;
   right: 0;
   bottom: 0;
 }
 
 @media (min-width: 800px) {
-  .App .contents .stocks_container,
-  .App .contents .tasks_container {
+  .App > .app_body > .contents .stocks_container,
+  .App > .app_body > .contents .tasks_container {
     float: left;
     height: 100%;
     width: 50%;

@@ -19,3 +19,7 @@
 .TaskListItem .row .date > .date_field {
   margin-left: 1em;
 }
+
+.TaskListItem.editable .row .date > .date_field {
+  margin-left: 0.5em;
+}

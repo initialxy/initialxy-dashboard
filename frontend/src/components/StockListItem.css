@@ -10,7 +10,7 @@
 }
 
 .StockListItem .row .summary .symbol > input {
-  max-width: 3rem;
+  max-width: 4rem;
 }
 
 .StockListItem .row .summary,
@@ -25,4 +25,13 @@
   padding: 1rem 0 1rem 1rem;
   box-sizing: border-box;
   position: relative;
+}
+
+.StockListItem.editable .row > .chart {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  border-radius: 0.3rem;
+}
+
+.StockListItem.editable .row > .summary > div {
+  margin: 0.2rem 0 0.2rem 0;
 }

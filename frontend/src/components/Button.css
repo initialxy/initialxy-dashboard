@@ -1,12 +1,12 @@
 .Button {
   -webkit-tap-highlight-color: transparent;
+  border-width: 0;
   border: none;
   color: white;
-  outline: none;
-  padding: 0.5rem;
+  height: 1.8rem;
   margin: 0;
-  border-width: 0;
-  box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.3);
+  outline: none;
+  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
 }
 
 .Button.circular {
@@ -16,69 +16,52 @@
 }
 
 .Button:disabled {
-  opacity: 0.75;
+  opacity: 0.5;
 }
 
 .Button.add {
-  background-color: #16b86f;
+  background-color: #b6caf2;
+  color: #0044cc;
 }
 
 .Button.add:active {
-  background-color: #0f804d;
+  background-color: #8f9fbf;
 }
 
 .Button.edit {
-  background-color: #1647b8;
+  background-color: #e6e6e6;
+  color: #808080;
 }
 
 .Button.edit:active {
-  background-color: #0f3180;
+  background-color: #b3b3b3;
 }
 
 .Button.delete {
-  background-color: #b81616;
+  background-color: #f2b6b6;
+  color: #cc0000;
 }
 
 .Button.delete:active {
-  background-color: #800f0f;
+  background-color: #bf8f8f;
 }
 
 .Button.standalone {
-  border-radius: 0.5rem;
-}
-
-.Button.top {
-  border-radius: 0.5rem 0.5rem 0 0;
-}
-
-.Button.right {
-  border-radius: 0 0.5rem 0.5rem 0;
-}
-
-.Button.bottom {
-  border-radius: 0 0 0.5rem 0.5rem;
-}
-
-.Button.left {
-  border-radius: 0.5rem 0 0 0.5rem;
-}
-
-.Button.circular.standalone {
   border-radius: 0.9rem;
 }
 
-.Button.circular.top {
+.Button.top {
   border-radius: 0.9rem 0.9rem 0 0;
 }
 
-.Button.circular.right {
+.Button.right {
   border-radius: 0 0.9rem 0.9rem 0;
 }
 
-.Button.circular.bottom {
+.Button.bottom {
   border-radius: 0 0 0.9rem 0.9rem;
 }
 
-.Button.circular.left {
+.Button.left {
   border-radius: 0.9rem 0 0 0.9rem;
 }

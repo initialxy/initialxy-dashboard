@@ -37,7 +37,7 @@ export default defineComponent({
         <Button
           class="add_button"
           buttonType={ButtonType.Add}
-          label="+"
+          label="➕"
           onClick={onClick}
           circular
         />
