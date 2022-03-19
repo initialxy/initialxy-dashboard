@@ -100,16 +100,14 @@ class CachedFinance:
   def get_market_today_open_close_ts(cls) -> Tuple[int, int]:
     tz = timezone(CONFIG.market_time_zone)
     now = datetime.now(tz)
-    open_dt = datetime.combine(
+    open_dt = tz.localize(datetime.combine(
       now.date(),
       time.fromisoformat(CONFIG.market_open_time),
-      tzinfo=now.tzinfo,
-    )
-    close_dt = datetime.combine(
+    ))
+    close_dt = tz.localize(datetime.combine(
       now.date(),
       time.fromisoformat(CONFIG.market_close_time),
-      tzinfo=now.tzinfo,
-    )
+    ))
     return int(open_dt.timestamp()), int(close_dt.timestamp())
 
   @classmethod
