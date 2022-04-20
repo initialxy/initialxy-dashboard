@@ -207,8 +207,12 @@ const store = createStore({
       context.commit("fadeEditButton");
     },
     async fetchStocks(context): Promise<void> {
-      const stocksResp = await API.genStocks();
-      context.commit("setStocks", stocksResp);
+      try {
+        const stocksResp = await API.genStocks();
+        context.commit("setStocks", stocksResp);
+      } catch (e: any) {
+        console.error(e);
+      }
     },
     async addStock(context): Promise<void> {
       const stocks = context.state.stocksResp?.stocks || [];
@@ -281,8 +285,12 @@ const store = createStore({
       await API.genUpdateStocks(new Stocks({ stocks }));
     },
     async fetchTasks(context): Promise<void> {
-      const tasksResp = await API.genTasks();
-      context.commit("setTasks", tasksResp);
+      try {
+        const tasksResp = await API.genTasks();
+        context.commit("setTasks", tasksResp);
+      } catch (e: any) {
+        console.error(e);
+      }
     },
     async addTask(context): Promise<void> {
       const tasks = context.state.tasksResp?.tasks || [];
