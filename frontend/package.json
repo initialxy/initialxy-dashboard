@@ -9,30 +9,30 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
-    "core-js": "^3.20.1",
-    "luxon": "^2.3.1",
+    "core-js": "^3.26.1",
+    "luxon": "^3.1.0",
     "roboto-fontface": "^0.10.0",
-    "thrift": "^0.16.0",
+    "thrift": "^0.17.0",
     "ts-memoize-decorator": "^1.1.0",
-    "vue": "^3.2.26",
-    "vuex": "^4.0.2"
+    "vue": "^3.2.45",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@creditkarma/thrift-typescript": "^3.7.6",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "@vue/cli-plugin-babel": "~4.5.15",
-    "@vue/cli-plugin-eslint": "~4.5.15",
-    "@vue/cli-plugin-typescript": "~4.5.15",
-    "@vue/cli-plugin-vuex": "~4.5.15",
-    "@vue/cli-service": "~4.5.15",
-    "@vue/compiler-sfc": "^3.2.26",
-    "@vue/eslint-config-typescript": "^10.0.0",
-    "@types/lru-cache": "^5.1.1",
-    "@types/luxon": "^2.3.0",
+    "@types/lru-cache": "^7.10.10",
+    "@types/luxon": "^3.1.0",
     "@types/thrift": "^0.10.11",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "@vue/cli-plugin-babel": "~4.5.19",
+    "@vue/cli-plugin-eslint": "~4.5.19",
+    "@vue/cli-plugin-typescript": "~4.5.19",
+    "@vue/cli-plugin-vuex": "~4.5.19",
+    "@vue/cli-service": "~4.5.19",
+    "@vue/compiler-sfc": "^3.2.45",
+    "@vue/eslint-config-typescript": "^11.0.2",
     "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^8.2.0",
-    "typescript": "~4.5.4"
+    "eslint-plugin-vue": "^9.8.0",
+    "typescript": "~4.9.3"
   }
 }

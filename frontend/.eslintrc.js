@@ -19,6 +19,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'vue/multi-word-component-names': 'off',
-    'no-constant-condition': 'off'
+    'no-constant-condition': 'off',
+    '@typescript-eslint/no-loss-of-precision': 'off'
   }
 }
