@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     'vue/multi-word-component-names': 'off',
     'no-constant-condition': 'off',
-    '@typescript-eslint/no-loss-of-precision': 'off'
+    '@typescript-eslint/no-loss-of-precision': 'off',
+    'vue/no-reserved-component-names': 'off'
   }
 }
