@@ -5,9 +5,13 @@ import ListItem from "./ListItem";
 import StockChart from "./StockChart";
 import TextField from "./TextField";
 
+function round(num: number): number {
+  return Math.round(num * 100) / 100;
+}
+
 function getPctChange(old: number, cur: number): number {
   const ratio = (cur / old - 1);
-  return Math.round(ratio * 10000) / 100;
+  return round(ratio * 100);
 }
 
 export default defineComponent({
@@ -69,7 +73,7 @@ export default defineComponent({
             <div class="price">
               {
                 props.stock.curMarketPrice != null ?
-                  props.stock.curMarketPrice :
+                  round(props.stock.curMarketPrice) :
                   "--"
               }
             </div>
