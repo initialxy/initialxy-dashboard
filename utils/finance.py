@@ -17,18 +17,18 @@ MIN_REFETCH_DELAY = 30
 
 class Finance:
   @classmethod
-  def __get_market_price(cls, price: Optional[Any]) -> Optional[float]:
-    if price is None:
+  def __get_market_price(cls, info: Optional[Any]) -> Optional[float]:
+    if info is None:
       return None
 
-    return float(price["regularMarketPrice"])
+    return float(info["lastPrice"])
 
   @classmethod
-  def __get_pre_day_close(cls, price: Optional[Any]) -> Optional[float]:
-    if price is None:
+  def __get_pre_day_close(cls, info: Optional[Any]) -> Optional[float]:
+    if info is None:
       return None
 
-    return float(price["regularMarketPreviousClose"])
+    return float(info["regularMarketPreviousClose"])
 
   @classmethod
   def __get_price_history(
@@ -59,7 +59,7 @@ class Finance:
 
     symbols = " ".join([s.symbol for s in stocks.stocks])
 
-    info = yf.Tickers(symbols)
+    tickers = yf.Tickers(symbols)
     history = yf.download(
       tickers=symbols,
       threads=False,
@@ -67,10 +67,10 @@ class Finance:
       interval="5m",
       group_by="ticker",
     )
-    symbol_to_price = {
-      s.symbol: info.tickers[s.symbol].stats()["price"]
+    symbol_to_info = {
+      s.symbol: tickers.tickers[s.symbol].fast_info
       for s in stocks.stocks
-      if s.symbol in info.tickers
+      if s.symbol in tickers.tickers
     }
 
     extracted_stocks = [
@@ -78,8 +78,8 @@ class Finance:
         s.id,
         s.ord,
         s.symbol,
-        cls.__get_market_price(symbol_to_price.get(s.symbol)),
-        cls.__get_pre_day_close(symbol_to_price.get(s.symbol)),
+        cls.__get_market_price(symbol_to_info.get(s.symbol)),
+        cls.__get_pre_day_close(symbol_to_info.get(s.symbol)),
         cls.__get_price_history(
           history if len(stocks.stocks) == 1 else history.get(s.symbol),
         ),
