@@ -19,7 +19,7 @@ export function onlyx<T>(vs: Array<T>): T {
 }
 
 export function clx(clsDef: { [cls: string]: boolean }): string {
-  const classes = [];
+  const classes: string[] = [];
   for (const c in clsDef) {
     if (clsDef[c]) {
       classes.push(c);
@@ -29,7 +29,7 @@ export function clx(clsDef: { [cls: string]: boolean }): string {
 }
 
 export function stx(styleDef: { [nane: string]: string }): string {
-  const styles = [];
+  const styles: string[] = [];
   for (const p in styleDef) {
     styles.push(`${p}: ${styleDef[p]};`);
   }

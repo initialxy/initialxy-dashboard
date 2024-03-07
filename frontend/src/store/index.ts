@@ -27,9 +27,9 @@ function findNeighbors(
   items: Array<GenericItem>,
   targetID: number,
 ): [GenericItem | null, GenericItem | null, GenericItem | null] {
-  let prev = null;
-  let cur = null;
-  let next = null;
+  let prev: GenericItem | null = null;
+  let cur: GenericItem | null = null;
+  let next: GenericItem | null = null;
   const i = items.findIndex(item => item.id === targetID);
   if (i > -1) {
     cur = items[i];

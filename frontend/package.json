@@ -15,11 +15,12 @@
     "thrift": "^0.17.0",
     "ts-memoize-decorator": "^1.1.0",
     "vue": "^3.2.45",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "lru-cache": "^6.0.0"
   },
   "devDependencies": {
     "@creditkarma/thrift-typescript": "^3.7.6",
-    "@types/lru-cache": "^7.10.10",
+    "@types/lru-cache": "^5.1.1",
     "@types/luxon": "^3.1.0",
     "@types/thrift": "^0.10.11",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
