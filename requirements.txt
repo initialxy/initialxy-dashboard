@@ -73,6 +73,7 @@ typing_extensions==4.10.0
 tzdata==2024.1
 urllib3==1.26.18
 urllib3-secure-extra==0.1.0
+waveshare-epaper==1.1.1
 webdriver-manager==4.0.1
 webencodings==0.5.1
 wrapt==1.16.0
