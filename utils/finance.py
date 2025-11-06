@@ -28,7 +28,7 @@ class Finance:
     if info is None:
       return None
 
-    return float(info["regularMarketPreviousClose"])
+    return float(info["previousClose"])
 
   @classmethod
   def __get_price_history(
@@ -38,15 +38,16 @@ class Finance:
     if history is None:
       return []
     
+    ticker = history.columns[0][0]
     return [
       pygen.types.StockDataPoint(
-        round(h.High, 2),
-        round(h.Low, 2),
-        round(h.Open, 2),
-        round(h.Close, 2),
+        round(h[ticker]["High"], 2),
+        round(h[ticker]["Low"], 2),
+        round(h[ticker]["Open"], 2),
+        round(h[ticker]["Close"], 2),
       )
-      for h in history.itertuples()
-      if not isnan(h.Open)
+      for _, h in history.iterrows()
+      if not isnan(h[ticker]["Open"])
     ]
 
   @classmethod

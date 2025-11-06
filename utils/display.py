@@ -24,13 +24,10 @@ class Display:
       chrome_options.add_argument("headless")
       chrome_options.add_argument("window-size=" + CONFIG.resolution)
       chrome_options.add_argument("hide-scrollbars")
-
-      caps = DesiredCapabilities().CHROME
-      caps["pageLoadStrategy"] = "none"
+      chrome_options.set_capability("pageLoadStrategy", "none")
 
       cls.__driver = webdriver.Chrome(
-        options=chrome_options,
-        desired_capabilities=caps,
+        options=chrome_options
       )
       cls.__driver.get("http://localhost:" + str(CONFIG.port))
 

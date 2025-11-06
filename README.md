@@ -31,7 +31,7 @@ Use `--help` to see the other dev mode options. Then open a second terminal inst
     cd frontend
     npm run serve
 
-Go to http://localhost:8080 in your browser.
+Go to http://localhost:8000 in your browser.
 
 To run this app in prod mode without sourcing venv
 
