@@ -45,7 +45,7 @@ class Finance:
         round(r["Open"], 2),
         round(r["Close"], 2),
       )
-      for r in [h.droplevel("Ticker") for _, h in history.iterrows()]
+      for _, r in history.iterrows()
       if not isnan(r["Open"])
     ]
 
@@ -80,9 +80,7 @@ class Finance:
         s.symbol,
         cls.__get_market_price(symbol_to_info.get(s.symbol)),
         cls.__get_pre_day_close(symbol_to_info.get(s.symbol)),
-        cls.__get_price_history(
-          history if len(stocks.stocks) == 1 else history.get(s.symbol),
-        ),
+        cls.__get_price_history(history.get(s.symbol)),
       )
       for s in stocks.stocks
     ]
