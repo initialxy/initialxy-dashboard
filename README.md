@@ -6,14 +6,15 @@
 This is my personal Raspberry Pi project, which uses an always-on e-ink screen as a dashboard. It shows three secions: date and time, stocks and tasks. It's optimized specifically for the Waveshare 7.5" monochrome 800x480px e-ink screen that I purchased. So it's probably not useful elsewhare.
 
 # Prerequisites
-* Python 3.7+
+* Python 3.13+
 * npm 6.14.8+
 * node 14.9.0+
+* On 64-bit Raspberry Pi OS, you need to get the [latest ChromeDriver from electron](https://github.com/electron/electron/releases) and put it under `/home/pi/bin` with executable permission.
 
 # Build and run
 I used [venv](https://docs.python.org/3/library/venv.html) to create a virtual env first, though that's optional.
 
-    python3 -v  # 3.7 and above
+    python3 -v  # 3.13 and above
     python3 -m venv venv #  You can choose a different name
     source venv/bin/activate
     pip install -r requirements.txt

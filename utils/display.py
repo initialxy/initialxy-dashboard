@@ -6,7 +6,7 @@ from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chromium.webdriver import ChromiumDriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.service import Service
 
 from utils.config import get_config
 
@@ -25,8 +25,10 @@ class Display:
       chrome_options.add_argument("window-size=" + CONFIG.resolution)
       chrome_options.add_argument("hide-scrollbars")
       chrome_options.set_capability("pageLoadStrategy", "none")
+      service = Service("/home/pi/bin/chromedriver")
 
       cls.__driver = webdriver.Chrome(
+        service=service,
         options=chrome_options
       )
       cls.__driver.get("http://localhost:" + str(CONFIG.port))

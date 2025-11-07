@@ -38,16 +38,15 @@ class Finance:
     if history is None:
       return []
     
-    ticker = history.columns[0][0]
     return [
       pygen.types.StockDataPoint(
-        round(h[ticker]["High"], 2),
-        round(h[ticker]["Low"], 2),
-        round(h[ticker]["Open"], 2),
-        round(h[ticker]["Close"], 2),
+        round(r["High"], 2),
+        round(r["Low"], 2),
+        round(r["Open"], 2),
+        round(r["Close"], 2),
       )
-      for _, h in history.iterrows()
-      if not isnan(h[ticker]["Open"])
+      for r in [h.droplevel("Ticker") for _, h in history.iterrows()]
+      if not isnan(r["Open"])
     ]
 
   @classmethod
