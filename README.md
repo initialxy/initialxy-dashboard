@@ -10,6 +10,7 @@ This is my personal Raspberry Pi project, which uses an always-on e-ink screen a
 * npm 6.14.8+
 * node 14.9.0+
 * On 64-bit Raspberry Pi OS, you need to get the [latest ChromeDriver from electron](https://github.com/electron/electron/releases) and put it under `/home/pi/bin` with executable permission.
+* Enable SPI in `raspi-config`
 
 # Build and run
 I used [venv](https://docs.python.org/3/library/venv.html) to create a virtual env first, though that's optional.
