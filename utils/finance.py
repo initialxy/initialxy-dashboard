@@ -28,7 +28,7 @@ class Finance:
     if info is None:
       return None
 
-    return float(info["previousClose"])
+    return float(info["regularMarketPreviousClose"])
 
   @classmethod
   def __get_price_history(
