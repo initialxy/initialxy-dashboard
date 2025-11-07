@@ -20,9 +20,11 @@ class Display:
   @classmethod
   def init_display(cls):
     if not cls.__driver:
+      window_size = (str(CONFIG.resolution[0]) + "," + str(CONFIG.resolution[1]
+        + CONFIG.chrome_toolbar_height))
       chrome_options = Options()
       chrome_options.add_argument("--headless=new")
-      chrome_options.add_argument("--window-size=" + CONFIG.resolution)
+      chrome_options.add_argument("--window-size=" + window_size)
       chrome_options.add_argument("--hide-scrollbars")
       chrome_options.set_capability("pageLoadStrategy", "none")
       service = Service("/home/pi/bin/chromedriver")

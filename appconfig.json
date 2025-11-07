@@ -5,6 +5,7 @@
   "dateFormat": "MMMM d, yyyy",
   "dateShortFormat": "MMM d",
   "epaperModel": "epd7in5_V2",
+  "chromeToolbarHeight": 139,
   "resolution": "800,480",
   "marketOpenTime": "09:30",
   "marketCloseTime": "16:00",

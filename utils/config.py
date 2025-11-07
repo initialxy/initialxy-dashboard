@@ -21,7 +21,8 @@ class Config:
   date_format: str
   date_short_format: str
   epaper_model: str
-  resolution: str
+  chrome_toolbar_height: int
+  resolution: tuple[int, int]
   market_open_time: str
   market_close_time: str
   market_time_zone: str
@@ -39,6 +40,7 @@ def get_config() -> Config:
     contents = f.read()
 
   config_dict = json.loads(contents)
+  resolution = config_dict["resolution"].split(",")
 
   return Config(
     args.debug,
@@ -50,7 +52,8 @@ def get_config() -> Config:
     config_dict.get("dateFormat", "yyyy-MM-dd"),
     config_dict.get("dateShortFormat", "MM-dd"),
     config_dict["epaperModel"],
-    config_dict["resolution"],
+    int(config_dict["chromeToolbarHeight"]),
+    (int(resolution[0]), int(resolution[1])),
     config_dict.get("marketOpenTime", "09:30"),
     config_dict.get("marketCloseTime", "16:00"),
     config_dict.get("marketTimeZone", "America/New_York"),
