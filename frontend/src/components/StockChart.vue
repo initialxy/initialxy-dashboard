@@ -15,25 +15,23 @@ function getRange(stock: Stock): [number | null, number | null] {
     return [null, null]
   }
 
-  const allValues = stock.dataPoints
-    .map(d => [d.max, d.min, d.open, d.close])
-    .flat()
+  const allValues = stock.dataPoints.map((d) => [d.max, d.min, d.open, d.close]).flat()
   allValues.push(stock.preDayClose)
 
   return [Math.min.apply(null, allValues), Math.max.apply(null, allValues)]
 }
 
 function getVPct(v: number, chartMin: number, chartMax: number): number {
-  return chartMax !== chartMin ?
-    Math.round((chartMax - v) / (chartMax - chartMin) * 10000) / 100 :
-    50
+  return chartMax !== chartMin
+    ? Math.round(((chartMax - v) / (chartMax - chartMin)) * 10000) / 100
+    : 50
 }
 
 function getHPct(i: number, tot: number): number {
-  return Math.round(i / tot * 10000) / 100
+  return Math.round((i / tot) * 10000) / 100
 }
 
-const widthPct = computed(() => Math.round(1 / props.numPoints * 10000) / 100)
+const widthPct = computed(() => Math.round((1 / props.numPoints) * 10000) / 100)
 const [chartMin, chartMax] = getRange(props.stock)
 const isStockUp = computed(() => {
   return (props.stock.curMarketPrice || 0) >= (props.stock.preDayClose || 0)
@@ -41,13 +39,18 @@ const isStockUp = computed(() => {
 </script>
 
 <template>
-  <div 
-    v-if="props.stock.dataPoints != null && props.stock.preDayClose != null && chartMax != null && chartMin != null"
+  <div
+    v-if="
+      props.stock.dataPoints != null &&
+      props.stock.preDayClose != null &&
+      chartMax != null &&
+      chartMin != null
+    "
     :class="{
-      'StockChart': true,
-      'show_color': props.showColor,
-      'stock_up': isStockUp,
-      'stock_down': !isStockUp
+      StockChart: true,
+      show_color: props.showColor,
+      stock_up: isStockUp,
+      stock_down: !isStockUp,
     }"
   >
     <div class="inner">
@@ -55,26 +58,32 @@ const isStockUp = computed(() => {
         class="line"
         :style="{ top: getVPct(props.stock.preDayClose, chartMin, chartMax) + '%' }"
       />
-      <div v-if="props.showFullCandle" 
-           v-for="(d, i) in props.stock.dataPoints" 
-           :key="i"
-           class="bar"
-           :style="{
-             top: getVPct(d.max, chartMin, chartMax) + '%',
-             left: getHPct(i, props.numPoints) + '%',
-             width: widthPct + '%',
-             height: getVPct(chartMax - (d.max - d.min), chartMin, chartMax) + '%'
-           }"
+      <div
+        v-if="props.showFullCandle"
+        v-for="(d, i) in props.stock.dataPoints"
+        :key="i"
+        class="bar"
+        :style="{
+          top: getVPct(d.max, chartMin, chartMax) + '%',
+          left: getHPct(i, props.numPoints) + '%',
+          width: widthPct + '%',
+          height: getVPct(chartMax - (d.max - d.min), chartMin, chartMax) + '%',
+        }"
       />
-      <div 
-        v-for="(d, i) in props.stock.dataPoints" 
+      <div
+        v-for="(d, i) in props.stock.dataPoints"
         :key="i"
         class="candle"
         :style="{
           top: getVPct(Math.max(d.open, d.close), chartMin, chartMax) + '%',
           left: getHPct(i, props.numPoints) + '%',
           width: widthPct + '%',
-          height: getVPct(chartMax - (Math.max(d.open, d.close) - Math.min(d.open, d.close)), chartMin, chartMax) + '%'
+          height:
+            getVPct(
+              chartMax - (Math.max(d.open, d.close) - Math.min(d.open, d.close)),
+              chartMin,
+              chartMax,
+            ) + '%',
         }"
       />
     </div>
@@ -107,7 +116,7 @@ const isStockUp = computed(() => {
 
 /* Doesn't look like we have enough resolution to do a candle stick.*/
 .StockChart > .inner .bar {
-  background-image: url("/bar.png");
+  background-image: url('/bar.png');
   background-position: center;
   background-repeat: repeat-y;
   box-sizing: border-box;
@@ -141,7 +150,7 @@ const isStockUp = computed(() => {
 
 /* Doesn't look like we have enough resolution to do a candle stick.*/
 .StockChart > .inner .bar {
-  background-image: url("/bar.png");
+  background-image: url('/bar.png');
   background-position: center;
   background-repeat: repeat-y;
   box-sizing: border-box;

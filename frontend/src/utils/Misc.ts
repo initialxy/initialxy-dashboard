@@ -1,52 +1,49 @@
-export function emptyFunc(): void { }
+export function emptyFunc(): void {}
 
 export async function sleep(ms: number): Promise<void> {
-  return new Promise((resolve, _) => window.setTimeout(resolve, ms));
+  return new Promise((resolve, _) => window.setTimeout(resolve, ms))
 }
 
 export function nullthrows<T>(v?: T | null): T {
   if (v == null) {
-    throw new TypeError("Value cannot be null");
+    throw new TypeError('Value cannot be null')
   }
-  return v;
+  return v
 }
 
 export function onlyx<T>(vs: Array<T>): T {
   if (vs.length != 1) {
-    throw new RangeError("Only one value is expected");
+    throw new RangeError('Only one value is expected')
   }
-  return vs[0] as T;
+  return vs[0] as T
 }
 
 export function stx(styleDef: { [nane: string]: string }): string {
-  const styles: string[] = [];
+  const styles: string[] = []
   for (const p in styleDef) {
-    styles.push(`${p}: ${styleDef[p]};`);
+    styles.push(`${p}: ${styleDef[p]};`)
   }
-  return styles.join(" ");
+  return styles.join(' ')
 }
 
-export function debounceBatch<T, U>(
-  fn: (vs: Array<T>) => U,
-  ms: number,
-): (v: T) => void {
-  let scheduleID = 0;
-  let batch: Array<T> = [];
+export function debounceBatch<T, U>(fn: (vs: Array<T>) => U, ms: number): (v: T) => void {
+  let scheduleID = 0
+  let batch: Array<T> = []
   return (props: T) => {
     if (scheduleID !== 0) {
-      window.clearTimeout(scheduleID);
+      window.clearTimeout(scheduleID)
     }
-    batch.push(props);
+    batch.push(props)
     scheduleID = window.setTimeout(() => {
-      scheduleID = 0;
-      const batchCp = batch;
-      batch = [];
-      fn(batchCp);
-    }, ms);
-  };
+      scheduleID = 0
+      const batchCp = batch
+      batch = []
+      fn(batchCp)
+    }, ms)
+  }
 }
 
 export function debounce(fn: () => void, ms: number): () => void {
-  const dfn = debounceBatch((_v) => fn(), ms);
-  return () => dfn(null);
+  const dfn = debounceBatch((_v) => fn(), ms)
+  return () => dfn(null)
 }

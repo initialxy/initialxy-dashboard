@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ButtonType } from './types'
 import { onMounted } from 'vue'
-import { Stock } from "./jsgen/Stock";
-import { Task } from "./jsgen/Task";
+import { Stock } from './jsgen/Stock'
+import { Task } from './jsgen/Task'
 import { useStore } from './stores'
 import AddButton from './components/AddButton.vue'
 import Button from './components/Button.vue'
@@ -88,13 +88,10 @@ const onChangeTask = (taskCopy: Task) => {
 </script>
 
 <template>
-  <div :class="['App', { 'show_color': store.isEditable }]" v-if="store.config">
+  <div :class="['App', { show_color: store.isEditable }]" v-if="store.config">
     <div class="app_body">
       <div class="header">
-        <Clock 
-          :timeFormat="store.config.timeFormat" 
-          :dateFormat="store.config.dateFormat" 
-        />
+        <Clock :timeFormat="store.config.timeFormat" :dateFormat="store.config.dateFormat" />
         <Button
           class="edit_toggle"
           :class="{ fade: store.shouldFadeEditButton }"
@@ -139,7 +136,9 @@ const onChangeTask = (taskCopy: Task) => {
 </template>
 
 <style scoped>
-html, body, #app {
+html,
+body,
+#app {
   background-color: black;
   height: 100%;
   margin: 0;
@@ -161,7 +160,7 @@ html, body, #app {
 }
 
 .App > .app_body {
-  background-image: url("/background.png");
+  background-image: url('/background.png');
   background-position: 100% 100%;
   background-repeat: no-repeat;
   width: 100%;

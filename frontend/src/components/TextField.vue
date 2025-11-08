@@ -9,7 +9,7 @@ const onInput = (e: Event) => {
   if (e.target == null || props.onInput == null) {
     return
   }
-  props.onInput((e.target as HTMLInputElement).value || "")
+  props.onInput((e.target as HTMLInputElement).value || '')
 }
 </script>
 

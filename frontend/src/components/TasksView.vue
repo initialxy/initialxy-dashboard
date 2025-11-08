@@ -24,9 +24,11 @@ const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100
     <TaskListItem
       v-for="(task, i) in props.tasksResp?.tasks || []"
       :key="task.id"
-      :style="stx({
-        'height': (props.editable ? heightPct * 2 : heightPct) + '%',
-      })"
+      :style="
+        stx({
+          height: (props.editable ? heightPct * 2 : heightPct) + '%',
+        })
+      "
       :task="task"
       :dateFormat="props.dateFormat"
       :editable="props.editable"

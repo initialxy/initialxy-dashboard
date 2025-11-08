@@ -15,11 +15,13 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div :class="{
-    'ListItem': true,
-    'auto_middle': props.autoMiddle,
-    'editable': props.editable,
-  }">
+  <div
+    :class="{
+      ListItem: true,
+      auto_middle: props.autoMiddle,
+      editable: props.editable,
+    }"
+  >
     <div class="item_container">
       <div v-if="props.editable" class="move_position">
         <Button
@@ -93,7 +95,7 @@ const props = defineProps<{
   width: 100%;
 }
 
-.ListItem.auto_middle > .item_container >  .item_body {
+.ListItem.auto_middle > .item_container > .item_body {
   height: auto;
   width: auto;
 }

@@ -28,7 +28,7 @@ function round(num: number): number {
 }
 
 function getPctChange(old: number, cur: number): number {
-  const ratio = (cur / old - 1)
+  const ratio = cur / old - 1
   return round(ratio * 100)
 }
 
@@ -84,25 +84,18 @@ const onInput = (symbol: string) => {
           />
         </div>
         <div class="price">
-          {{ 
-            props.stock.curMarketPrice != null ?
-              round(props.stock.curMarketPrice) :
-              "--"
-          }}
+          {{ props.stock.curMarketPrice != null ? round(props.stock.curMarketPrice) : '--' }}
         </div>
         <div class="pct">
-          {{ 
-            props.stock.curMarketPrice != null && props.stock.preDayClose != null ?
-              getPctChange(
-                props.stock.preDayClose,
-                props.stock.curMarketPrice,
-              ) :
-              "--"
+          {{
+            props.stock.curMarketPrice != null && props.stock.preDayClose != null
+              ? getPctChange(props.stock.preDayClose, props.stock.curMarketPrice)
+              : '--'
           }}%
         </div>
       </div>
       <StockChart
-        class="chart" 
+        class="chart"
         :stock="props.stock"
         :num-points="props.numPoints"
         :show-color="props.editable"

@@ -26,10 +26,10 @@ const handleClick = (_: Event) => {
 <template>
   <button
     :class="{
-      'Button': true,
+      Button: true,
       [props.buttonType]: true,
       [props.buttonPosition]: true,
-      'circular': props.circular
+      circular: props.circular,
     }"
     @click="handleClick"
     :disabled="props.disabled"

@@ -24,7 +24,7 @@ const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100
     <StockListItem
       v-for="(stock, i) in props.stocksResp?.stocks || []"
       :key="stock.id"
-      :style="stx({ 'height': heightPct + '%' })"
+      :style="stx({ height: heightPct + '%' })"
       :stock="stock"
       :numPoints="props.numPoints"
       :editable="props.editable"

@@ -17,8 +17,8 @@ const onInput = (e: Event) => {
   if (e.target == null) {
     return
   }
-  const value = (e.target as HTMLInputElement).value || ""
-  if (value === "") {
+  const value = (e.target as HTMLInputElement).value || ''
+  if (value === '') {
     shouldShowPicker.value = false
   }
 
@@ -26,7 +26,7 @@ const onInput = (e: Event) => {
     return
   }
 
-  if (value !== "") {
+  if (value !== '') {
     props.onInput(DateTime.fromISO(value).toSeconds())
   } else {
     props.onInput(null)
@@ -48,15 +48,9 @@ const onAddDate = () => {
         @input="onInput"
         :value="props.value ? DateTime.fromSeconds(props.value).toFormat('yyyy-MM-dd') : ''"
       />
-      <Button
-        v-else
-        label="Add Date"
-        @click="onAddDate"
-        :button-type="ButtonType.Add"
-        circular
-      />
+      <Button v-else label="Add Date" @click="onAddDate" :button-type="ButtonType.Add" circular />
     </div>
-    <span v-else :class="{ 'DateField': true, 'hidden': props.value == null }">
+    <span v-else :class="{ DateField: true, hidden: props.value == null }">
       {{ props.value ? DateTime.fromSeconds(props.value).toFormat(props.dateFormat) : '' }}
     </span>
   </div>

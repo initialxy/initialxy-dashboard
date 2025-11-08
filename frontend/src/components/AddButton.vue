@@ -27,13 +27,7 @@ const onAddTask = () => {
 
 <template>
   <div class="AddButton">
-    <Button
-      class="add_button"
-      :button-type="ButtonType.Add"
-      label="➕"
-      @click="onClick"
-      circular
-    />
+    <Button class="add_button" :button-type="ButtonType.Add" label="➕" @click="onClick" circular />
     <div v-if="shouldShowDropDown" class="drop_down">
       <Button
         class="add_stock"
