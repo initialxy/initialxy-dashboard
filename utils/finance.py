@@ -18,14 +18,14 @@ MIN_REFETCH_DELAY = 30
 class Finance:
   @classmethod
   def __get_market_price(cls, info: Optional[Any]) -> Optional[float]:
-    if info is None:
+    if info is None or info["lastPrice"] is None:
       return None
 
     return float(info["lastPrice"])
 
   @classmethod
   def __get_pre_day_close(cls, info: Optional[Any]) -> Optional[float]:
-    if info is None:
+    if info is None or info["regularMarketPreviousClose"] is None:
       return None
 
     return float(info["regularMarketPreviousClose"])

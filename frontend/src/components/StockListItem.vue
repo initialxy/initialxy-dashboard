@@ -114,9 +114,6 @@ const onInput = (symbol: string) => {
 
 .StockListItem .row .summary .symbol {
   font-weight: 500;
-}
-
-.StockListItem .row .summary .symbol > input {
   max-width: 4rem;
 }
 

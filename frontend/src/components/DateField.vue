@@ -48,7 +48,7 @@ const onAddDate = () => {
         @input="onInput"
         :value="props.value ? DateTime.fromSeconds(props.value).toFormat('yyyy-MM-dd') : ''"
       />
-      <Button v-else label="Add Date" @click="onAddDate" :button-type="ButtonType.Add" circular />
+      <Button v-else label="Add Date" @click="onAddDate" :button-type="ButtonType.Add" />
     </div>
     <span v-else :class="{ DateField: true, hidden: props.value == null }">
       {{ props.value ? DateTime.fromSeconds(props.value).toFormat(props.dateFormat) : '' }}
