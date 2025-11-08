@@ -22,7 +22,7 @@ const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100
 <template>
   <div class="StocksView">
     <StockListItem
-      v-for="(stock, i) in props.stocksResp?.stocks || []"
+      v-for="(stock, i) in props.stocksResp?.stocks ?? []"
       :key="stock.id"
       :style="stx({ height: heightPct + '%' })"
       :stock="stock"
@@ -30,10 +30,10 @@ const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100
       :editable="props.editable"
       :disableMoveUp="i === 0"
       :disableMoveDown="i + 1 === props.stocksResp?.stocks?.length"
-      @move-up="props.onMoveUp?.(stock.id)"
-      @move-down="props.onMoveDown?.(stock.id)"
-      @delete="props.onDelete?.(stock.id)"
-      @change="props.onChange?.(stock)"
+      @move-up="props.onMoveUp"
+      @move-down="props.onMoveDown"
+      @delete="props.onDelete"
+      @change="props.onChange"
       :disabled="stock.id === 0"
     />
   </div>

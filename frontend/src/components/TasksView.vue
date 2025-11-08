@@ -22,7 +22,7 @@ const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100
 <template>
   <div class="TasksView">
     <TaskListItem
-      v-for="(task, i) in props.tasksResp?.tasks || []"
+      v-for="(task, i) in props.tasksResp?.tasks ?? []"
       :key="task.id"
       :style="
         stx({
@@ -34,10 +34,10 @@ const heightPct = Math.round(10000 / NUM_ITEMS_IN_VIEW) / 100
       :editable="props.editable"
       :disableMoveUp="i === 0"
       :disableMoveDown="i + 1 === props.tasksResp?.tasks?.length"
-      @move-up="props.onMoveUp?.(task.id)"
-      @move-down="props.onMoveDown?.(task.id)"
-      @delete="props.onDelete?.(task.id)"
-      @change="props.onChange?.(task)"
+      @move-up="props.onMoveUp"
+      @move-down="props.onMoveDown"
+      @delete="props.onDelete"
+      @change="props.onChange"
       :disabled="task.id === 0"
     />
   </div>
