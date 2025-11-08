@@ -13,19 +13,9 @@ export function nullthrows<T>(v?: T | null): T {
 
 export function onlyx<T>(vs: Array<T>): T {
   if (vs.length != 1) {
-    throw new RangeError("Only one value is expcted");
+    throw new RangeError("Only one value is expected");
   }
-  return vs[0];
-}
-
-export function clx(clsDef: { [cls: string]: boolean }): string {
-  const classes: string[] = [];
-  for (const c in clsDef) {
-    if (clsDef[c]) {
-      classes.push(c);
-    }
-  }
-  return classes.join(" ");
+  return vs[0] as T;
 }
 
 export function stx(styleDef: { [nane: string]: string }): string {

@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import App from './App'
-import store from './store'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
 
-createApp(App).use(store).mount('#app')
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+
+const app = createApp(App)
+
+const pinia = createPinia()
+app.use(pinia)
+
+app.mount('#app')

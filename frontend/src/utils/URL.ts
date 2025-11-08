@@ -1,19 +1,17 @@
-const ROOT = process.env.NODE_ENV === "development"
-  ? "http://localhost:8000/"
-  : "/";
+const ROOT = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : '/'
 
 export function getConfigEndpoint(): string {
-  return ROOT + "c";
+  return ROOT + 'c'
 }
 
 export function getStocksEndpoint(): string {
-  return ROOT + "s";
+  return ROOT + 's'
 }
 
 export function getTasksEndpoint(): string {
-  return ROOT + "t";
+  return ROOT + 't'
 }
 
 export function isEditableHash(): boolean {
-  return window.location.hash === "#e";
+  return window.location.hash === '#e'
 }

@@ -3,12 +3,13 @@ import { FrontEndConfig } from "../jsgen/FrontEndConfig";
 import { getConfigEndpoint, getStocksEndpoint, getTasksEndpoint } from "./URL";
 import { nullthrows } from "./Misc";
 import { onlyx } from "./Misc";
-import { Stocks } from "../jsgen/Stocks";
 import { Stock } from "../jsgen/Stock";
+import { Stocks } from "../jsgen/Stocks";
 import { Task } from "../jsgen/Task";
 import { Tasks } from "../jsgen/Tasks";
-import { TFramedTransport, TBinaryProtocol, TProtocol } from "thrift";
+import { TFramedTransport, TBinaryProtocol } from "thrift";
 import Memoize from "./Memoize";
+import type { TProtocol } from "thrift"
 
 function deserializeThrift<T>(
   data: Buffer,
@@ -19,14 +20,24 @@ function deserializeThrift<T>(
   return thriftClass.read(protocal);
 }
 
+function toArrayBuffer(buffer: Buffer): ArrayBuffer {
+  const arrayBuffer = new ArrayBuffer(buffer.length);
+  const view = new Uint8Array(arrayBuffer);
+  buffer.forEach((value, index) => {
+    view[index] = value;
+  });
+  return arrayBuffer;
+}
+
 async function genSerializeThrift(
   thriftObj: { write(output: TProtocol): void },
-): Promise<Buffer> {
+): Promise<ArrayBuffer> {
   return new Promise((resolve, _) => {
     const trans = new TFramedTransport(
       undefined,
       // There are 4 bytes of header that need to be trimmed.
-      (msg?: Buffer, _seqid?: number) => resolve(nullthrows(msg).slice(4)),
+      (msg?: Buffer, _seqid?: number) =>
+        resolve(toArrayBuffer(nullthrows(msg).subarray(4))),
     );
     const protocal = new TBinaryProtocol(trans);
     thriftObj.write(protocal);
