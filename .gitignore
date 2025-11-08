@@ -17,5 +17,3 @@ frontend/**/*.jsx
 frontend/**/*.js.map
 frontend/src/**/*.js
 frontend/dist/**/*.js
-
-frontend_old

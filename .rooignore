@@ -17,16 +17,3 @@ frontend/**/*.jsx
 frontend/**/*.js.map
 frontend/src/**/*.js
 frontend/dist/**/*.js
-
-frontend_old/package-lock.json
-frontend_old/node_modules
-frontend_old/dist
-frontend_old/src/jsgen
-frontend_old/.env.local
-frontend_old/.env.*.local
-frontend_old/npm-debug.log*
-frontend_old/**/*.jsx.map
-frontend_old/**/*.jsx
-frontend_old/**/*.js.map
-frontend_old/src/**/*.js
-frontend_old/dist/**/*.js
