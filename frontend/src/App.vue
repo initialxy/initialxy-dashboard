@@ -136,16 +136,6 @@ const onChangeTask = (taskCopy: Task) => {
 </template>
 
 <style scoped>
-html,
-body,
-#app {
-  background-color: black;
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  width: 100%;
-}
-
 .App {
   background-color: black;
   color: black;

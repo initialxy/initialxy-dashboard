@@ -1,4 +1,5 @@
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

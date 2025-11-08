@@ -1,0 +1,9 @@
+html,
+body,
+#app {
+  background-color: black;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+}
