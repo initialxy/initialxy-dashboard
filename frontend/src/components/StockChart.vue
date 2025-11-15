@@ -10,17 +10,6 @@ const props = defineProps<{
 }>()
 
 // Helper functions
-function getRange(stock: Stock): [number | null, number | null] {
-  if (stock.preDayClose == null || stock.dataPoints == null) {
-    return [null, null]
-  }
-
-  const allValues = stock.dataPoints.map((d) => [d.max, d.min, d.open, d.close]).flat()
-  allValues.push(stock.preDayClose)
-
-  return [Math.min.apply(null, allValues), Math.max.apply(null, allValues)]
-}
-
 function getVPct(v: number, chartMin: number, chartMax: number): number {
   return chartMax !== chartMin
     ? Math.round(((chartMax - v) / (chartMax - chartMin)) * 10000) / 100
@@ -32,7 +21,19 @@ function getHPct(i: number, tot: number): number {
 }
 
 const widthPct = computed(() => Math.round((1 / props.numPoints) * 10000) / 100)
-const [chartMin, chartMax] = getRange(props.stock)
+const chartRange = computed((): { min: number | null; max: number | null } => {
+  if (props.stock.preDayClose == null || props.stock.dataPoints == null) {
+    return { min: null, max: null }
+  }
+
+  const allValues = props.stock.dataPoints.map((d) => [d.max, d.min, d.open, d.close]).flat()
+  allValues.push(props.stock.preDayClose)
+
+  return {
+    min: Math.min.apply(null, allValues),
+    max: Math.max.apply(null, allValues),
+  }
+})
 const isStockUp = computed(() => {
   return (props.stock.curMarketPrice || 0) >= (props.stock.preDayClose || 0)
 })
@@ -43,8 +44,8 @@ const isStockUp = computed(() => {
     v-if="
       props.stock.dataPoints != null &&
       props.stock.preDayClose != null &&
-      chartMax != null &&
-      chartMin != null
+      chartRange.min != null &&
+      chartRange.max != null
     "
     :class="{
       StockChart: true,
@@ -56,7 +57,7 @@ const isStockUp = computed(() => {
     <div class="inner">
       <div
         class="line"
-        :style="{ top: getVPct(props.stock.preDayClose, chartMin, chartMax) + '%' }"
+        :style="{ top: getVPct(props.stock.preDayClose, chartRange.min, chartRange.max) + '%' }"
       />
       <div
         v-if="props.showFullCandle"
@@ -64,10 +65,10 @@ const isStockUp = computed(() => {
         :key="i"
         class="bar"
         :style="{
-          top: getVPct(d.max, chartMin, chartMax) + '%',
+          top: getVPct(d.max, chartRange.min, chartRange.max) + '%',
           left: getHPct(i, props.numPoints) + '%',
           width: widthPct + '%',
-          height: getVPct(chartMax - (d.max - d.min), chartMin, chartMax) + '%',
+          height: getVPct(chartRange.max - (d.max - d.min), chartRange.min, chartRange.max) + '%',
         }"
       />
       <div
@@ -75,14 +76,14 @@ const isStockUp = computed(() => {
         :key="i"
         class="candle"
         :style="{
-          top: getVPct(Math.max(d.open, d.close), chartMin, chartMax) + '%',
+          top: getVPct(Math.max(d.open, d.close), chartRange.min, chartRange.max) + '%',
           left: getHPct(i, props.numPoints) + '%',
           width: widthPct + '%',
           height:
             getVPct(
-              chartMax - (Math.max(d.open, d.close) - Math.min(d.open, d.close)),
-              chartMin,
-              chartMax,
+              chartRange.max - (Math.max(d.open, d.close) - Math.min(d.open, d.close)),
+              chartRange.min,
+              chartRange.max,
             ) + '%',
         }"
       />
@@ -148,7 +149,6 @@ const isStockUp = computed(() => {
   box-sizing: border-box;
 }
 
-/* Doesn't look like we have enough resolution to do a candle stick.*/
 .StockChart > .inner .bar {
   background-image: url('/bar.png');
   background-position: center;
